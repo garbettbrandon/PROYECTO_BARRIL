@@ -1,8 +1,10 @@
-package com.example.barril;
+package com.example.barril.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.barril.R;
 
 public class MainActivity extends AppCompatActivity {
 
