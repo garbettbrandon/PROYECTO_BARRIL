@@ -9,12 +9,13 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="220dp"
-        android:layout_height="185dp"
+        android:layout_width="161dp"
+        android:layout_height="130dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.468"
         app:srcCompat="@drawable/barril" />
 
     <androidx.constraintlayout.widget.Guideline
