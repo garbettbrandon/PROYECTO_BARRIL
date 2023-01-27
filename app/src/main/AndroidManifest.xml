@@ -13,6 +13,24 @@
         android:theme="@style/Theme.BARRIL"
         tools:targetApi="31">
         <activity
+            android:name=".ui.CardView"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.Registrarse"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.LogIn"
             android:exported="true">
             <intent-filter>
