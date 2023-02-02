@@ -7,22 +7,36 @@
     android:fontFamily="@font/"
     tools:context=".ui.CardView">
 
+        <ImageView
+            android:id="@+id/botellaCerveza"
+            android:layout_width="76dp"
+            android:layout_height="226dp"
+            android:backgroundTint="#f7f7f7"
+            android:scaleType="fitCenter"
+            android:translationZ="1dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="290dp"
+            android:layout_marginBottom="65dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/tercio" />
 
-    <ImageView
-        android:id="@+id/botellaCerveza"
-        android:layout_width="76dp"
-        android:layout_height="226dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="290dp"
-        android:layout_marginBottom="65dp"
-        android:backgroundTint="#f7f7f7"
-        android:scaleType="fitCenter"
-        android:translationZ="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/tercio" />
+        <ImageButton
+            android:id="@+id/idMeGustaMinii"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:translationZ="1dp"
+            android:layout_marginLeft="310dp"
+            android:layout_marginBottom="120dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout"
+            app:srcCompat="@drawable/me_gusta" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -30,8 +44,10 @@
         android:layout_height="400dp"
         android:gravity="center"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
             android:layout_width="370dp"
@@ -47,6 +63,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/idColorCabeceraMini"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:background="@color/red"
@@ -54,6 +71,7 @@
                     android:paddingLeft="220dp">
 
                     <ImageView
+                        android:id="@+id/idLogoCervezaMini"
                         android:layout_width="150dp"
                         android:layout_height="match_parent"
                         android:paddingRight="20dp"
@@ -62,6 +80,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/idImagenCervezaMini"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
                     android:orientation="horizontal">
@@ -76,11 +95,13 @@
 
 
                     <LinearLayout
+                        android:id="@+id/idMeGustaMini"
                         android:layout_width="250dp"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/idTituloCervezaMini"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
@@ -95,6 +116,7 @@
                             android:textSize="17sp" />
 
                         <TextView
+                            android:id="@+id/idDescripcionCervezaMini"
                             android:layout_width="180dp"
                             android:layout_height="180dp"
                             android:layout_marginLeft="5dp"
@@ -118,8 +140,8 @@
                     <LinearLayout
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:gravity="center"
                         android:layout_marginLeft="20dp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -128,6 +150,7 @@
                             app:srcCompat="@drawable/cerveza" />
 
                         <TextView
+                            android:id="@+id/idTamanioCervezaMini"
                             android:layout_width="60dp"
                             android:layout_height="30dp"
                             android:fontFamily="@font/secular"
@@ -149,6 +172,7 @@
                             app:srcCompat="@drawable/precio" />
 
                         <TextView
+                            android:id="@+id/idPrecioCervezaMini"
                             android:layout_width="60dp"
                             android:layout_height="30dp"
                             android:fontFamily="@font/secular"
@@ -172,6 +196,7 @@
                             app:srcCompat="@drawable/porcentaje" />
 
                         <TextView
+                            android:id="@+id/idPorcentajeCervezaMini"
                             android:layout_width="60dp"
                             android:layout_height="30dp"
                             android:fontFamily="@font/secular"

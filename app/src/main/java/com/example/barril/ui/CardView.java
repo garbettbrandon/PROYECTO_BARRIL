@@ -18,7 +18,6 @@ public class CardView extends AppCompatActivity {
 
         botellaCerveza = findViewById(R.id.botellaCerveza);
 
-        botellaCerveza.bringToFront();
-        botellaCerveza.setElevation(50);
+        botellaCerveza.setElevation(5f);
     }
 }
