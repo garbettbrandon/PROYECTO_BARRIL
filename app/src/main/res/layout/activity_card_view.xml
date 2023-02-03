@@ -135,6 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/borde_linea"
+                    android:backgroundTint="#DCDCDC"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -155,6 +156,7 @@
                             android:layout_height="30dp"
                             android:fontFamily="@font/secular"
                             android:gravity="center"
+                            android:textSize="17sp"
                             android:text="hola"
                             android:textColor="@color/black" />
 
@@ -177,6 +179,7 @@
                             android:layout_height="30dp"
                             android:fontFamily="@font/secular"
                             android:gravity="center"
+                            android:textSize="17sp"
                             android:text="hola"
                             android:textColor="@color/black" />
 
@@ -201,6 +204,7 @@
                             android:layout_height="30dp"
                             android:fontFamily="@font/secular"
                             android:gravity="center"
+                            android:textSize="17sp"
                             android:text="hola"
                             android:textColor="@color/black" />
 
