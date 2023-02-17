@@ -1,16 +1,96 @@
 package com.example.barril.ui;
 
-public class ListElement {
-    public String color;
-    public String name;
-    public String descripcion;
-    public String graduacion;
+import android.view.View;
 
-    public ListElement(String color, String name, String descripcion, String graduacion) {
-        this.color = color;
-        this.name = name;
+public class ListElement {
+
+    public int botella;
+    public int logo;
+    public String marca;
+    public String descripcion;
+    public String precio;
+    public String cantidad;
+    public String grados;
+    public String color;
+
+
+    public ListElement(int botella, int logo, String marca, String descripcion, String precio, String cantidad, String grados, String color) {
+        this.botella = botella;
+        this.logo = logo;
+        this.marca = marca;
         this.descripcion = descripcion;
-        this.graduacion = graduacion;
+        this.precio = precio;
+        this.cantidad = cantidad;
+        this.grados = grados;
+        this.color = color;
+    }
+
+    public int getBotella() {
+
+        return botella;
+    }
+
+    public void setBotella(int botella) {
+
+        this.botella = botella;
+    }
+
+    public int getLogo() {
+
+        return logo;
+    }
+
+    public void setLogo(int logo) {
+
+        this.logo = logo;
+    }
+
+    public String getMarca() {
+
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+
+        this.marca = marca;
+    }
+
+    public String getDescripcion() {
+
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+
+        this.descripcion = descripcion;
+    }
+
+    public String getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(String precio) {
+
+        this.precio = precio;
+    }
+
+    public String getCantidad() {
+
+        return cantidad;
+    }
+
+    public void setCantidad(String cantidad) {
+
+        this.cantidad = cantidad;
+    }
+
+    public String getGrados() {
+
+        return grados;
+    }
+
+    public void setGrados(String grados) {
+        this.grados = grados;
     }
 
     public String getColor() {
@@ -20,28 +100,5 @@ public class ListElement {
     public void setColor(String color) {
         this.color = color;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getGraduacion() {
-        return graduacion;
-    }
-
-    public void setGraduacion(String graduacion) {
-        this.graduacion = graduacion;
-    }
 }
+

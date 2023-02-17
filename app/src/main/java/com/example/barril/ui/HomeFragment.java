@@ -31,14 +31,19 @@ public class HomeFragment extends Fragment {
 
     public void init(View view) {
         elements = new ArrayList<>();
-        elements.add(new ListElement("#775447", "Delirium Brown", "Aqui va la info", "7,8%"));
-        elements.add(new ListElement("#C30606", "Delirium Red", "Aqui va la info", "10%%"));
-        elements.add(new ListElement("#06C33C", "Crafts", "Aqui va la info", "5,3%"));
-        elements.add(new ListElement("#0676C3", "Franzis", "Aqui va la info", "5,5%"));
-        elements.add(new ListElement("#C306B8", "Weisehols", "Aqui va la info", "6,6%"));
-        elements.add(new ListElement("#C306B8", "Weisehols", "Aqui va la info", "6,6%"));
-        elements.add(new ListElement("#C306B8", "Weisehols", "Aqui va la info", "6,6%"));
-        elements.add(new ListElement("#C306B8", "Weisehols", "Aqui va la info", "6,6%"));
+        //elements.add(new ListElement(R.drawable.botella_mahou,R.drawable.logo_mahou,"mahou","una cerveza muy buena","3","3","3","#FFFFFf"));
+        //elements.add(new ListElement(R.drawable.botella_cibeles,R.drawable.logo_cibeles, "Cibeles", "otra cerve","5","6","5","#f4f4f4"));
+        elements.add(new ListElement(R.drawable.goose_botella,R.drawable.logo_cibeles, "Goose", "otra cerve","2,82€","0,33cl","5,8%","#C68B3D"));
+        elements.add(new ListElement(R.drawable.abadia_botella,R.drawable.logo_cibeles, "Abadia", "otra cerve","2,49€","0,33cl","5,0%","#ED999D"));
+        elements.add(new ListElement(R.drawable.birraandblues_botella,R.drawable.logo_cibeles, "Birra & Blues", "otra cerve","2,58€","0,33cl","7,5%","#77BC71"));
+        elements.add(new ListElement(R.drawable.la_virgen_botella,R.drawable.la_virgen_logo, "La Virgen", "otra cerve","2,20€","0,33cl","5,2%","#F83B36"));
+        elements.add(new ListElement(R.drawable.paquita_brown_botella,R.drawable.paquita_brown_logo, "Paquita Brown", "Curioso nombre para una cerveza especial.","2,49€","0,33cl","5,2%","#845D49"));
+        elements.add(new ListElement(R.drawable.kadabra_botella,R.drawable.kadabra, "Kadabra", "La cerveza artesana Golden Ale de Kadabra es una cerveza rubia, dorada y de complejo carácter.","2,49€","0,33cl","4,8%","#0083B4"));
+        elements.add(new ListElement(R.drawable.la_socarrada_botella,R.drawable.la_socarrada_logo, "La Socarrada", "Es una cerveza artesana premiun de estilo Winter Honey Ale, elaborada con Romero y Miel de Romero.","2,59€","0,33cl","6,0%","#7D7651"));
+
+
+
+
         ListAdapter listAdapter = new ListAdapter(elements, getActivity());
         RecyclerView recyclerView = view.findViewById(R.id.listRecyclerView);
         recyclerView.setHasFixedSize(true);
