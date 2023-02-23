@@ -25,19 +25,21 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/dregradado">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="LAGER"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -50,19 +52,20 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
-
+                android:orientation="vertical"
+                android:background="@drawable/dregradado">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ALE"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -75,19 +78,22 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            android:backgroundTint="@color/orange">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/dregradado">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="STOUT"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -100,19 +106,22 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            android:backgroundTint="@color/orange">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/dregradado">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="PILSNER"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -125,19 +134,22 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            android:backgroundTint="@color/orange">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/dregradado">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="WHEAT"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -150,19 +162,22 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            android:backgroundTint="@color/orange">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/dregradado">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="IPA"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -175,19 +190,22 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            android:backgroundTint="@color/orange">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/dregradado">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="BELGIAN"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -200,19 +218,22 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            android:backgroundTint="@color/orange">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/dregradado">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="OTROS"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
