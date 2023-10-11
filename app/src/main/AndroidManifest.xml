@@ -13,7 +13,7 @@
         android:theme="@style/Theme.BARRIL"
         tools:targetApi="31">
         <activity
-            android:name=".ui.LogIn"
+            android:name=".ui.login.LogIn"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,7 +48,8 @@
 
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/splashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
