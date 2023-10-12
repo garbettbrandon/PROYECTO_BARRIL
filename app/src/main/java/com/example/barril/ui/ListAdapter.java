@@ -1,8 +1,10 @@
 package com.example.barril.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barril.R;
@@ -30,7 +33,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @NonNull
     @Override
     public ListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.list_element,null);
+        View view = mInflater.inflate(R.layout.activity_card_view,null);
         return new ListAdapter.ViewHolder(view);
     }
 
@@ -44,21 +47,32 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView iconImage;
-        TextView name, descripcion, graduacion;
+        ImageView botella, logo;
+        TextView marca, descripcion, precio, cantidad, grados;
+        View color;
 
+
+        @SuppressLint("ResourceType")
         ViewHolder(View itemView){
             super(itemView);
-            iconImage = itemView.findViewById(R.id.iconImageView);
-            name = itemView.findViewById(R.id.nameTextView);
-            descripcion = itemView.findViewById(R.id.infoTextView);
-            graduacion = itemView.findViewById(R.id.alcoholTextView);
+            botella = itemView.findViewById(R.id.botellaCerveza );
+            logo = itemView.findViewById(R.id.idLogoCervezaMini);
+            marca = itemView.findViewById(R.id.idTituloCervezaMini);
+            descripcion = itemView.findViewById(R.id.idDescripcionCervezaMini);
+            precio = itemView.findViewById(R.id.idPrecioCervezaMini);
+            cantidad = itemView.findViewById(R.id.idTamanioCervezaMini);
+            grados = itemView.findViewById(R.id.idPorcentajeCervezaMini);
+            color = itemView.findViewById(R.id.idColorCabeceraMini);
         }
         void bindData(final ListElement item){
-            iconImage.setColorFilter(Color.parseColor(item.getColor()), PorterDuff.Mode.SRC_IN);
-            name.setText(item.getName());
+            botella.setImageResource(item.getBotella());
+            logo.setImageResource(item.getLogo());
+            marca.setText(item.getMarca());
             descripcion.setText(item.getDescripcion());
-            graduacion.setText(item.getGraduacion());
+            precio.setText(item.getPrecio());
+            cantidad.setText(item.getCantidad());
+            grados.setText(item.getGrados());
+            color.setBackgroundColor(Color.parseColor(item.getColor()));
         }
     }
 
