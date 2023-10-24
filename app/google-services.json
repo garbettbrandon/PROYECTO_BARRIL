@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "117050392225",
+    "project_id": "barril-e9ba3",
+    "storage_bucket": "barril-e9ba3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117050392225:android:7182a0f88fbc018405fae0",
+        "android_client_info": {
+          "package_name": "com.example.barril"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117050392225-j1r14c1f5cbn6du8cea83pcu74jgj3v8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgETfE6bA1VftGgVx802P2VMAgKDiZLn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117050392225-j1r14c1f5cbn6du8cea83pcu74jgj3v8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "117050392225-fq5k2oi6mdji3f9dedao7p7ed1ou2ugj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.barril"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117050392225:android:04a30ae0cb56b06a05fae0",
+        "android_client_info": {
+          "package_name": "com.example.barril.ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117050392225-j1r14c1f5cbn6du8cea83pcu74jgj3v8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgETfE6bA1VftGgVx802P2VMAgKDiZLn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117050392225-j1r14c1f5cbn6du8cea83pcu74jgj3v8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "117050392225-fq5k2oi6mdji3f9dedao7p7ed1ou2ugj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.barril"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117050392225:android:57e4b3f05c930ee605fae0",
+        "android_client_info": {
+          "package_name": "com.example.barril.ui.login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117050392225-j1r14c1f5cbn6du8cea83pcu74jgj3v8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgETfE6bA1VftGgVx802P2VMAgKDiZLn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117050392225-j1r14c1f5cbn6du8cea83pcu74jgj3v8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "117050392225-fq5k2oi6mdji3f9dedao7p7ed1ou2ugj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.barril"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

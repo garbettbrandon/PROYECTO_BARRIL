@@ -7,8 +7,15 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.example.barril.R;
 import com.example.barril.databinding.ActivityMainBinding;
@@ -16,22 +23,36 @@ import com.example.barril.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MainActivity extends AppCompatActivity {
+
+    public enum ProviderType{
+        BASIC,
+        GOOGLE
+    }
 
     ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        setTheme(R.style.splashTheme);
-
         super.onCreate(savedInstanceState);
+
+        //recibir datos de autenticacion
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("email");
+        String pT = intent.getStringExtra("pT");
+
+        //Guardado de datos
+        SharedPreferences.Editor sP = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit();
+        sP.putString("email", email);
+        sP.putString("provider", pT);
+        sP.apply();
+
+
+
+
+
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
