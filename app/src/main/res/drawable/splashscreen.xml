@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/bg_color"/>
     <item>
-        <bitmap android:src="@drawable/icon_barril"
+        <bitmap android:src="@drawable/icon_splash"
             android:gravity="center"/>
     </item>
 </layer-list>

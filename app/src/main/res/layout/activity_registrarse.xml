@@ -89,7 +89,7 @@
             android:textColor="#DBE3DD">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/idEMail"
+                android:id="@+id/idMail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/borde" />
@@ -128,9 +128,17 @@
                 android:background="@drawable/borde" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <Button
+            android:id="@+id/idAcceder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="acceder" />
 
-
-
+        <Button
+            android:id="@+id/idIniciar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Iniciar Sesion" />
 
 
     </LinearLayout>
