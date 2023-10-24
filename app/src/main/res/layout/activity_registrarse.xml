@@ -99,22 +99,6 @@
             style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:hint="Usuario"
-            android:paddingLeft="60dp"
-            android:paddingRight="60dp"
-            android:textColor="#DBE3DD">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/idRegistroUsuario"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/borde" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
             android:hint="Contraseña"
             android:inputType="textPassword"
             android:paddingLeft="60dp"
@@ -125,7 +109,8 @@
                 android:id="@+id/idRegistroContrasenia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/borde" />
+                android:background="@drawable/borde"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

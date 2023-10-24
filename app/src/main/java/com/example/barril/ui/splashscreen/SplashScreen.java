@@ -25,7 +25,7 @@ public class SplashScreen extends AppCompatActivity {
         setTheme(R.style.splashTheme);
 
         ImageView imageView = (ImageView) findViewById(R.id.id_icon_splash);
-        imageView.setImageResource(R.drawable.icon_barril);
+        imageView.setImageResource(R.drawable.icon_splash);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotar360);
         imageView.startAnimation(animation);
 
@@ -38,7 +38,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent intent = new Intent(SplashScreen.this, Registrarse.class);
+                Intent intent = new Intent(SplashScreen.this, LogIn.class);
                 startActivity(intent);
                 finish();
             }

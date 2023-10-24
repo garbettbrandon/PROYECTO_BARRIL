@@ -33,6 +33,7 @@
         android:orientation="vertical"
         android:background="@drawable/bg_color_linear_prin"
         android:paddingTop="40dp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,14 +93,16 @@
                 android:id="@+id/idContrasenia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/borde" />
+                android:background="@drawable/borde"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingBottom="0dp"
+            android:paddingBottom="10dp"
+            android:inputType="textPassword"
             app:boxStrokeColor="#00DFDF">
 
             <Button
@@ -112,6 +115,16 @@
                 tools:ignore="TouchTargetSizeCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/idEntrarGoogle"
+            android:layout_width="200dp"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/google"
+            android:text="Entra con Google"
+            android:textColor="@color/white" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

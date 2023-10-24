@@ -23,7 +23,7 @@ public class Registrarse extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
-    TextView idNombre, idApellido, idMail, idRegistroUsuario, idRegistroContrasenia;
+    TextView idNombre, idApellido, idMail, idRegistroContrasenia;
     Button idAcceder, idIniciar;
 
 
@@ -38,7 +38,6 @@ public class Registrarse extends AppCompatActivity {
         idNombre = findViewById(R.id.idNombre);
         idApellido = findViewById(R.id.idApellido);
         idMail = findViewById(R.id.idMail);
-        idRegistroUsuario= findViewById(R.id.idRegistroUsuario);
         idRegistroContrasenia= findViewById(R.id.idRegistroContrasenia);
 
         idAcceder= findViewById(R.id.idAcceder);
