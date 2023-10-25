@@ -1,4 +1,4 @@
-package com.example.barril.ui.login;
+package com.example.barril.ui.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,6 +1,4 @@
-package com.example.barril.ui;
-
-import android.view.View;
+package com.example.barril.ui.view;
 
 public class ListElement {
 

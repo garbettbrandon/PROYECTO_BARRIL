@@ -1,4 +1,4 @@
-package com.example.barril.ui;
+package com.example.barril.ui.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
