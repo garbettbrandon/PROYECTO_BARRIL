@@ -31,7 +31,7 @@
         android:layout_height="550dp"
         android:orientation="vertical"
         android:background="@drawable/bg_color_linear_prin"
-        android:paddingTop="40dp"
+        android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,8 @@
             android:layout_height="61dp"
             android:gravity="center"
             android:text="Regístrate"
-            android:textColor="@color/black"
+            android:textColor="@color/orange"
+            android:textStyle="bold"
             android:textSize="25sp" />
         <com.google.android.material.textfield.TextInputLayout
 
@@ -52,13 +53,12 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="Nombre"
-            android:paddingLeft="60dp"
-            android:paddingRight="60dp"
+            android:gravity="center"
             android:textColor="#DBE3DD">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/idNombre"
-                android:layout_width="match_parent"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/borde" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -68,13 +68,12 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="Apellido"
-            android:paddingLeft="60dp"
-            android:paddingRight="60dp"
+            android:gravity="center"
             android:textColor="#DBE3DD">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/idApellido"
-                android:layout_width="match_parent"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/borde" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -84,13 +83,12 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:hint="E-Mail"
-            android:paddingLeft="60dp"
-            android:paddingRight="60dp"
+            android:gravity="center"
             android:textColor="#DBE3DD">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/idMail"
-                android:layout_width="match_parent"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/borde" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -101,29 +99,65 @@
             android:layout_height="60dp"
             android:hint="Contraseña"
             android:inputType="textPassword"
-            android:paddingLeft="60dp"
-            android:paddingRight="60dp"
+            android:gravity="center"
             android:textColor="#DBE3DD">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/idRegistroContrasenia"
-                android:layout_width="match_parent"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/borde"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Repite tu contraseña"
+            android:inputType="textPassword"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:textColor="#DBE3DD">
 
-        <Button
-            android:id="@+id/idAcceder"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idRegistroReContrasenia"
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/borde"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="acceder" />
+            android:hint="Repite tu contraseña"
+            android:inputType="textPassword"
+            android:gravity="center"
+            android:paddingLeft="60dp"
+            android:paddingRight="60dp"
+            android:textColor="#DBE3DD">
 
-        <Button
-            android:id="@+id/idIniciar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Iniciar Sesion" />
+            <Button
+                android:id="@+id/idAcceder"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:drawableRight="@drawable/icono_entrar"
+                android:text="acceder" />
+
+            <Button
+                android:id="@+id/idIniciar"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:drawableRight="@drawable/acceso"
+                android:text="Iniciar Sesion" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
 
 
     </LinearLayout>

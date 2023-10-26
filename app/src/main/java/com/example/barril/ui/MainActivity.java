@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        //-----------------------------AUTH FIREBASE RECIBE DATOS DE LOG IN--------------------------------------------------
         //recibir datos de autenticacion
         Intent intent = getIntent();
         String email = intent.getStringExtra("email");
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         sP.putString("email", email);
         sP.putString("provider", pT);
         sP.apply();
-
+        //----------------------------------FIN-------------------------------------------------------------------------------
 
 
 
