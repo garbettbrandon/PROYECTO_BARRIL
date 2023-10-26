@@ -74,9 +74,9 @@ public class LogIn extends AppCompatActivity {
 
         });
 
-        idOlvidado.setOnClickListener(view -> {
+       /* idOlvidado.setOnClickListener(view -> {
             Toast.makeText(LogIn.this, "Inicio de sesión fallido", Toast.LENGTH_SHORT).show();
-        });
+        });*/
 
     }
     private void showAlert(){
