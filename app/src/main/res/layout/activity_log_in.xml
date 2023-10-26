@@ -149,7 +149,7 @@
                 android:layout_height="50dp"
                 android:textAlignment="textStart"
                 android:drawableRight="@drawable/verificar"
-                android:text="Registrarse" />
+                android:text="Registrarse " />
         </com.google.android.material.textfield.TextInputLayout>
 
 
