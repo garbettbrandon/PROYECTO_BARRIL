@@ -15,8 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.468"
-        app:srcCompat="@drawable/barril1" />
+        app:layout_constraintVertical_bias="0.842"
+        app:srcCompat="@drawable/icon_barril" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
