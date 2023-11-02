@@ -22,7 +22,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        setTheme(R.style.splashTheme);
+        //setTheme(R.style.splashTheme);
 
         ImageView imageView = (ImageView) findViewById(R.id.id_icon_splash);
         imageView.setImageResource(R.drawable.icon_splash);
