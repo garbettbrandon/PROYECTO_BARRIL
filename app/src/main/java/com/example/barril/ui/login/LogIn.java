@@ -60,12 +60,10 @@ public class LogIn extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // El inicio de sesión fue exitoso
-
                             showHome("robert", MainActivity.ProviderType.BASIC);
                             finish();
                         } else {
-                            // El inicio de sesión falló
-                            Toast.makeText(LogIn.this, "Inicio de sesión fallido", Toast.LENGTH_SHORT).show();
+                            // El inicio de sesión fallo
                             showAlert();
                         }
                     }
@@ -74,9 +72,9 @@ public class LogIn extends AppCompatActivity {
 
         });
 
-       /* idOlvidado.setOnClickListener(view -> {
-            Toast.makeText(LogIn.this, "Inicio de sesión fallido", Toast.LENGTH_SHORT).show();
-        });*/
+       idOlvidado.setOnClickListener(view -> {
+            Toast.makeText(LogIn.this, "Contraseña olvidda", Toast.LENGTH_SHORT).show();
+        });
 
     }
     private void showAlert(){
