@@ -1,5 +1,7 @@
 package com.example.barril.ui.login;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,11 @@ import android.widget.Toast;
 
 import com.example.barril.R;
 import com.example.barril.ui.MainActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,6 +31,7 @@ public class LogIn extends AppCompatActivity {
     private static String ERROR = "Error";
     private static String ACEPTAR = "Aceptar";
     private static String MENSAJE_NO_AUTORIZADO = "Error en usuario o contraseña";
+    //private static int GOOGLE_SING_IN = 100;
 
     private static final String EMAIL = "email";
     private static final String PROVIDER = "provider";
@@ -38,6 +46,29 @@ public class LogIn extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+
+    //COMPORBAR NO FUNCCIONA---------------------------------------------------------------------
+    /*private final ActivityResultLauncher<Intent> googleSignInLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    handleGoogleSignInResult(result.getData());
+                }
+            });
+
+    private void handleGoogleSignInResult(Intent data) {
+        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+        try {
+            GoogleSignInAccount account = task.getResult(ApiException.class);
+            // El inicio de sesión con Google fue exitoso, puedes acceder a la cuenta de GoogleSignInAccount aquí
+            String userEmail = account.getEmail();
+            showHome(userEmail, MainActivity.ProviderType.GOOGLE); // Asigna el tipo de proveedor apropiado
+            finish();
+        } catch (ApiException e) {
+            // El inicio de sesión con Google falló
+            showAlert();
+        }
+    }*/
+    //---------------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +82,13 @@ public class LogIn extends AppCompatActivity {
         idRegistro = findViewById(R.id.idRegistro);
         idEntrarGoogle = findViewById(R.id.idEntrarGoogle);
 
+
+
+
+
+
+
         //Comprobar sesión activa
-
-
-
-        idEntrarGoogle.setOnClickListener(view -> {
-        });
 
         idRegistro.setOnClickListener(view -> {
             Intent i = new Intent(LogIn.this, Registrarse.class);
@@ -64,7 +96,16 @@ public class LogIn extends AppCompatActivity {
             finish();
         });
         //-------------------------------------LOGING GOOGLE---------------------------------------------------
-
+        //---------------------------------Arreglar------------------------------------------------------------
+        /*idEntrarGoogle.setOnClickListener(view -> {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
+            GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+            googleSignInLauncher.launch(signInIntent);
+        });*/
 
 
 
@@ -113,6 +154,7 @@ public class LogIn extends AppCompatActivity {
 
     //comprobamos que hay sesion iniciada
     private void session(){
+        //con esto recogemos los tipos de inicio de sesion que hay. Se podrá utilizar para diferentes tipos de cuentas
         SharedPreferences sP = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
         comprobacionEmail = sP.getString(EMAIL, null);
         comprobacionProviderString = sP.getString(PROVIDER, null);
@@ -122,4 +164,6 @@ public class LogIn extends AppCompatActivity {
             showHome(comprobacionEmail, comprobacionProvider);
         }
     }
+
+
 }

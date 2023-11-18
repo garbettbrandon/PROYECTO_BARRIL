@@ -3,4 +3,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="prefs_file">com.example.barril.PREFERENCE_FILE_KEY</string>
+    <string name="default_web_client_id"  translatable= "false">117050392225-j1r14c1f5cbn6du8cea83pcu74jgj3v8.apps.googleusercontent.com</string>
 </resources>
