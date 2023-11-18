@@ -16,15 +16,19 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.barril.R;
 import com.example.barril.databinding.ActivityMainBinding;
+import com.example.barril.ui.login.LogIn;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
+
+
 
     public enum ProviderType{
         BASIC,
@@ -33,22 +37,30 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
+    String comprobacionEmail, comprobacionProvider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
+
         //-----------------------------AUTH FIREBASE RECIBE DATOS DE LOG IN--------------------------------------------------
         //recibir datos de autenticacion
         Intent intent = getIntent();
         String email = intent.getStringExtra("email");
-        String pT = intent.getStringExtra("pT");
-
+        String pT = intent.getStringExtra("provider");
+        ProviderType providerType = ProviderType.valueOf(pT);
         //Guardado de datos
         SharedPreferences.Editor sP = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit();
         sP.putString("email", email);
         sP.putString("provider", pT);
         sP.apply();
+
+
+
+
+
         //----------------------------------FIN-------------------------------------------------------------------------------
 
 
@@ -86,4 +98,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout,fragment);
         fragmentTransaction.commit();
     }
+
+
 }

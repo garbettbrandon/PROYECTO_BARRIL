@@ -1,6 +1,7 @@
 package com.example.barril.ui.login;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,12 +20,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Registrarse extends AppCompatActivity {
-
+    private static String ERROR = "Error";
+    private static String ACEPTAR = "Aceptar";
+    private static String MENSAJE_NO_AUTORIZADO = "El inicio de sesión no está autorizado";
 
 
     private FirebaseAuth mAuth;
     TextView idNombre, idApellido, idMail, idRegistroContrasenia;
     Button idAcceder, idIniciar;
+    String userEmail;
 
 
 
@@ -64,12 +68,13 @@ public class Registrarse extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // El inicio de sesión fue exitoso
-                                Intent i = new Intent(Registrarse.this, MainActivity.class);
-                                startActivity(i);
+                                userEmail = task.getResult().getUser().getEmail();
+                                showHome(userEmail, MainActivity.ProviderType.BASIC);
                                 finish();
                             } else {
                                 // El inicio de sesión falló
-                                Toast.makeText(Registrarse.this, "Inicio de sesión no autorizado", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(Registrarse.this, "Inicio de sesión no autorizado", Toast.LENGTH_SHORT).show();
+                                showAlert();
                             }
 
                         }
@@ -77,7 +82,20 @@ public class Registrarse extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void showAlert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(ERROR);
+        builder.setMessage(MENSAJE_NO_AUTORIZADO);
+        builder.setPositiveButton(ACEPTAR, null);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
-
+    private void showHome(String email, MainActivity.ProviderType pT){
+        Intent i = new Intent(Registrarse.this, MainActivity.class);
+        i.putExtra("email", email);
+        i.putExtra("provider", pT);
+        startActivity(i);
     }
 }

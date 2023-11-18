@@ -1,6 +1,8 @@
 package com.example.barril.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -32,6 +34,7 @@ public class AccountFragment extends Fragment {
         id_tipo_inicio = view.findViewById(R.id.id_tipo_inicio_acount);
 
         id_cerrar_sesion.setOnClickListener(viewLambda -> {
+            borradoDatosAutentificacion();
             FirebaseAuth.getInstance().signOut();
             volverInicio();
         });
@@ -44,5 +47,13 @@ public class AccountFragment extends Fragment {
         Intent i = new Intent(requireActivity(), LogIn.class);
         startActivity(i);
        requireActivity().finish();
+    }
+
+    public void borradoDatosAutentificacion() {
+        SharedPreferences sP = getActivity().getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sP.edit();
+        editor.clear();
+        editor.apply();
+
     }
 }
