@@ -1,10 +1,14 @@
 package com.example.barril.ui.login;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,8 +16,11 @@ import android.widget.Toast;
 
 import com.example.barril.R;
 import com.example.barril.ui.MainActivity;
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,18 +28,52 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LogIn extends AppCompatActivity {
 
+    private static String ERROR = "Error";
+    private static String ACEPTAR = "Aceptar";
+    private static String MENSAJE_NO_AUTORIZADO = "Error en usuario o contraseña";
+    //private static int GOOGLE_SING_IN = 100;
+
+    private static final String EMAIL = "email";
+    private static final String PROVIDER = "provider";
+
 
 
     TextView idUsuario, idContrasenia, idOlvidado;
     Button idBotonEntrar, idRegistro, idEntrarGoogle;
+    String userEmail, comprobacionEmail, comprobacionProviderString;
+    MainActivity.ProviderType comprobacionProvider;
 
 
     private FirebaseAuth mAuth;
 
+
+    //COMPORBAR NO FUNCCIONA---------------------------------------------------------------------
+    /*private final ActivityResultLauncher<Intent> googleSignInLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    handleGoogleSignInResult(result.getData());
+                }
+            });
+
+    private void handleGoogleSignInResult(Intent data) {
+        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+        try {
+            GoogleSignInAccount account = task.getResult(ApiException.class);
+            // El inicio de sesión con Google fue exitoso, puedes acceder a la cuenta de GoogleSignInAccount aquí
+            String userEmail = account.getEmail();
+            showHome(userEmail, MainActivity.ProviderType.GOOGLE); // Asigna el tipo de proveedor apropiado
+            finish();
+        } catch (ApiException e) {
+            // El inicio de sesión con Google falló
+            showAlert();
+        }
+    }*/
+    //---------------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+        session();
 
         idUsuario = findViewById(R.id.idUsuario);
         idContrasenia = findViewById(R.id.idContrasenia);
@@ -41,17 +82,34 @@ public class LogIn extends AppCompatActivity {
         idRegistro = findViewById(R.id.idRegistro);
         idEntrarGoogle = findViewById(R.id.idEntrarGoogle);
 
-        //Comprobar sesion activa
 
 
-        idEntrarGoogle.setOnClickListener(view -> {
-        });
+
+
+
+
+        //Comprobar sesión activa
 
         idRegistro.setOnClickListener(view -> {
             Intent i = new Intent(LogIn.this, Registrarse.class);
             startActivity(i);
             finish();
         });
+        //-------------------------------------LOGING GOOGLE---------------------------------------------------
+        //---------------------------------Arreglar------------------------------------------------------------
+        /*idEntrarGoogle.setOnClickListener(view -> {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
+            GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+            googleSignInLauncher.launch(signInIntent);
+        });*/
+
+
+
+        //-------------------------------------LOGIN NORMAL BASIC----------------------------------------------
 
         idBotonEntrar.setOnClickListener(view -> {
             if(!idUsuario.getText().toString().isEmpty() && !idContrasenia.getText().toString().isEmpty()){
@@ -60,7 +118,8 @@ public class LogIn extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // El inicio de sesión fue exitoso
-                            showHome("robert", MainActivity.ProviderType.BASIC);
+                            userEmail = task.getResult().getUser().getEmail();
+                            showHome(userEmail, MainActivity.ProviderType.BASIC);
                             finish();
                         } else {
                             // El inicio de sesión fallo
@@ -73,15 +132,15 @@ public class LogIn extends AppCompatActivity {
         });
 
        idOlvidado.setOnClickListener(view -> {
-            Toast.makeText(LogIn.this, "Contraseña olvidda", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LogIn.this, "Contraseña olvidada", Toast.LENGTH_SHORT).show();
         });
 
     }
     private void showAlert(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Error");
-        builder.setMessage("Error en usuario o contraseña");
-        builder.setPositiveButton("Aceptar", null);
+        builder.setTitle(ERROR);
+        builder.setMessage(MENSAJE_NO_AUTORIZADO);
+        builder.setPositiveButton(ACEPTAR, null);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -89,7 +148,22 @@ public class LogIn extends AppCompatActivity {
     private void showHome(String email, MainActivity.ProviderType pT){
         Intent i = new Intent(LogIn.this, MainActivity.class);
         i.putExtra("email", email);
-        i.putExtra("provider", pT);
+        i.putExtra("provider", pT.toString());
         startActivity(i);
     }
+
+    //comprobamos que hay sesion iniciada
+    private void session(){
+        //con esto recogemos los tipos de inicio de sesion que hay. Se podrá utilizar para diferentes tipos de cuentas
+        SharedPreferences sP = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+        comprobacionEmail = sP.getString(EMAIL, null);
+        comprobacionProviderString = sP.getString(PROVIDER, null);
+
+        if(comprobacionEmail != null && comprobacionProviderString != null){
+            comprobacionProvider = MainActivity.ProviderType.valueOf(comprobacionProviderString);
+            showHome(comprobacionEmail, comprobacionProvider);
+        }
+    }
+
+
 }
