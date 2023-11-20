@@ -5,28 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.barril.R;
 import com.example.barril.databinding.ActivityMainBinding;
-import com.example.barril.ui.cervezas.Product;
-import com.example.barril.ui.login.LogIn;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -49,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
     String comprobacionEmail, comprobacionProvider;
 
-    private List<Product> productList;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -109,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////
 
         pruebasFire();
-        productList = new ArrayList<>();
 
         db.collection("cervezas")
                 .get()
