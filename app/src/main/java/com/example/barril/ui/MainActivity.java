@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
 
     String comprobacionEmail, comprobacionProvider;
-
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    //FirebaseStorage storage = FirebaseStorage.getInstance();
 
 
     @Override
@@ -48,29 +49,12 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        recibirDatos();
+        fragments();
 
-        //-----------------------------AUTH FIREBASE RECIBE DATOS DE LOG IN--------------------------------------------------
-        //recibir datos de autenticacion
-        Intent intent = getIntent();
-        String email = intent.getStringExtra("email");
-        String pT = intent.getStringExtra("provider");
-        ProviderType providerType = ProviderType.valueOf(pT);
-        //Guardado de datos
-        SharedPreferences.Editor sP = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit();
-        sP.putString("email", email);
-        sP.putString("provider", pT);
-        sP.apply();
+    }
 
-
-
-
-
-        //----------------------------------FIN-------------------------------------------------------------------------------
-
-
-
-
-
+    private void fragments() {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -94,76 +78,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-
-        ////////////////////////////////////////////////////////////////////////////////////////////
-
-        pruebasFire();
-
-        db.collection("cervezas")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                //recogida datos
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-
-                                //mostrar por syso
-                                /*String id = document.getId();
-                                Map<String, Object> data = document.getData();
-
-                                // Imprime la información en la consola del sistema
-                                System.out.println("Cerveza ID: " + id);
-                                for (Map.Entry<String, Object> entry : data.entrySet()) {
-                                    System.out.println(entry.getKey() + ": " + entry.getValue());
-                                }*/
-
-                                //mostrar por toast
-                                String id = document.getId();
-                                Map<String, Object> data = document.getData();
-                                StringBuilder toastMessage = new StringBuilder("Cerveza ID: " + id);
-                                for (Map.Entry<String, Object> entry : data.entrySet()) {
-                                    toastMessage.append("\n")
-                                            .append(entry.getKey())
-                                            .append(": ")
-                                            .append(entry.getValue());
-                                }
-
-                                // Muestra el Toast
-                                Toast.makeText(MainActivity.this, toastMessage.toString(), Toast.LENGTH_SHORT).show();
-
-
-                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-
-
-
-       /* db.collection("cervezas")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });*/
-
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////
     }
-
     private void replaceFragment (Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -171,9 +86,21 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void pruebasFire(){
+    private void recibirDatos() {
+        //-----------------------------AUTH FIREBASE RECIBE DATOS DE LOG IN--------------------------------------------------
+        //recibir datos de autenticacion
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("email");
+        String pT = intent.getStringExtra("provider");
+        ProviderType providerType = ProviderType.valueOf(pT);
+        //Guardado de datos
+        SharedPreferences.Editor sP = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit();
+        sP.putString("email", email);
+        sP.putString("provider", pT);
+        sP.apply();
 
+
+        //----------------------------------FIN-------------------------------------------------------------------------------
     }
-
 
 }

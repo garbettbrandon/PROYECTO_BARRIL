@@ -1,9 +1,12 @@
 package com.example.barril.ui;
 
+import android.media.Image;
 import android.view.View;
+import android.widget.ImageView;
 
 public class ListElement {
 
+    public String id;
     public int botella;
     public int logo;
     public String marca;
@@ -12,9 +15,15 @@ public class ListElement {
     public String cantidad;
     public String grados;
     public String color;
+    public String url;
+    public ImageView imagen;
 
 
-    public ListElement(int botella, int logo, String marca, String descripcion, String precio, String cantidad, String grados, String color) {
+
+
+    public ListElement(String id, ImageView imagen,  int botella, int logo, String marca, String descripcion, String precio, String cantidad, String grados, String color, String url) {
+        this.id = id;
+        this.imagen = imagen;
         this.botella = botella;
         this.logo = logo;
         this.marca = marca;
@@ -23,6 +32,33 @@ public class ListElement {
         this.cantidad = cantidad;
         this.grados = grados;
         this.color = color;
+        this.url = url;
+    }
+
+    public ImageView getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(ImageView imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getId() {
+
+        return id;
+    }
+
+    public void setId(String id) {
+
+        this.id = id;
     }
 
     public int getBotella() {
