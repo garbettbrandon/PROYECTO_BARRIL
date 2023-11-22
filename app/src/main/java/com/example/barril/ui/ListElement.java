@@ -7,8 +7,6 @@ import android.widget.ImageView;
 public class ListElement {
 
     public String id;
-    public int botella;
-    public int logo;
     public String marca;
     public String descripcion;
     public String precio;
@@ -16,40 +14,42 @@ public class ListElement {
     public String grados;
     public String color;
     public String url;
+    public String urlBotella;
+    public String urlLogo;
     public ImageView imagen;
 
 
 
 
-    public ListElement(String id, ImageView imagen,  int botella, int logo, String marca, String descripcion, String precio, String cantidad, String grados, String color, String url) {
+    public ListElement(String id,String urlBotella, String urlLogo, String marca, String descripcion, String precio, String cantidad, String grados, String color) {
         this.id = id;
-        this.imagen = imagen;
-        this.botella = botella;
-        this.logo = logo;
+        this.urlBotella = urlBotella;
+        this.urlLogo = urlLogo;
         this.marca = marca;
         this.descripcion = descripcion;
         this.precio = precio;
         this.cantidad = cantidad;
         this.grados = grados;
         this.color = color;
-        this.url = url;
     }
 
-    public ImageView getImagen() {
-        return imagen;
+    public String getUrlLogo() {
+        return urlLogo;
     }
 
-    public void setImagen(ImageView imagen) {
-        this.imagen = imagen;
+    public void setUrlLogo(String urlLogo) {
+        this.urlLogo = urlLogo;
     }
 
-    public String getUrl() {
-        return url;
+    public String getUrlBotella() {
+        return urlBotella;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUrlBotella(String urlBotella) {
+        this.urlBotella = urlBotella;
     }
+
+
 
     public String getId() {
 
@@ -61,25 +61,6 @@ public class ListElement {
         this.id = id;
     }
 
-    public int getBotella() {
-
-        return botella;
-    }
-
-    public void setBotella(int botella) {
-
-        this.botella = botella;
-    }
-
-    public int getLogo() {
-
-        return logo;
-    }
-
-    public void setLogo(int logo) {
-
-        this.logo = logo;
-    }
 
     public String getMarca() {
 

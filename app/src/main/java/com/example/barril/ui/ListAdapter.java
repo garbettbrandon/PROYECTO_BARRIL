@@ -51,16 +51,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView botella, logo, imagen;
+        ImageView botella, logo;
         TextView marca, descripcion, precio, cantidad, grados;
         View color;
+
+        FirebaseStorage storage;
+        StorageReference storageRef, storageRef2;
 
 
         @SuppressLint("ResourceType")
         ViewHolder(View itemView){
             super(itemView);
             botella = itemView.findViewById(R.id.botellaCerveza );
-            imagen = itemView.findViewById(R.id.botellaCerveza );
             logo = itemView.findViewById(R.id.idLogoCervezaMini);
             marca = itemView.findViewById(R.id.idTituloCervezaMini);
             descripcion = itemView.findViewById(R.id.idDescripcionCervezaMini);
@@ -70,8 +72,39 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             color = itemView.findViewById(R.id.idColorCabeceraMini);
         }
         void bindData(final ListElement item){
-            botella.setImageResource(item.getBotella());
-            logo.setImageResource(item.getLogo());
+            // Cargar imagen de la botella desde una URL usando Picasso
+            Picasso.get().load(item.getUrlBotella()).into(botella, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    // La imagen se cargó con éxito
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    // Manejar el caso en que no se puede cargar la imagen
+                    Toast.makeText(context, "Error al cargar la imagen de la botella", Toast.LENGTH_SHORT).show();
+                }
+            });
+            storage = FirebaseStorage.getInstance();
+            storageRef = storage.getReference().child(item.getUrlLogo().toString());
+            storageRef2 = storage.getReference().child(item.getUrlBotella().toString());
+
+            // Recuperar la URL de la imagen
+            storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                // Aquí tienes la URL de la imagen
+                String imageUrl = uri.toString();
+
+                // Cargar la imagen en el ImageView usando Picasso
+                Picasso.get().load(imageUrl).into(logo);
+            });
+            storageRef2.getDownloadUrl().addOnSuccessListener(uri -> {
+                // Aquí tienes la URL de la imagen
+                String imageUrl = uri.toString();
+
+                // Cargar la imagen en el ImageView usando Picasso
+                Picasso.get().load(imageUrl).into(botella);
+            });
+
             marca.setText(item.getMarca());
             descripcion.setText(item.getDescripcion());
             precio.setText(item.getPrecio());
@@ -80,7 +113,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             color.setBackgroundColor(Color.parseColor(item.getColor()));
         }
     }
-
     @Override
     public int getItemCount() {
         return mData.size();
