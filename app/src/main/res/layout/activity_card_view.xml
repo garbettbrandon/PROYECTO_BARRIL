@@ -41,7 +41,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="430dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="370dp"
+            android:layout_width="wrap_content"
             android:layout_height="370dp"
             android:backgroundTint="#f7f7f7"
             app:cardCornerRadius="30dp"
@@ -156,9 +156,9 @@
                             android:layout_height="30dp"
                             android:fontFamily="@font/secular"
                             android:gravity="center"
-                            android:textSize="17sp"
                             android:text="hola"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
 
                     </LinearLayout>
 
@@ -179,9 +179,9 @@
                             android:layout_height="30dp"
                             android:fontFamily="@font/secular"
                             android:gravity="center"
-                            android:textSize="17sp"
                             android:text="hola"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
 
                     </LinearLayout>
 
@@ -204,9 +204,9 @@
                             android:layout_height="30dp"
                             android:fontFamily="@font/secular"
                             android:gravity="center"
-                            android:textSize="17sp"
                             android:text="hola"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
 
 
                     </LinearLayout>

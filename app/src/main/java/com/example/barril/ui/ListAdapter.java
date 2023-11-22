@@ -10,12 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barril.R;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -47,7 +51,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView botella, logo;
+        ImageView botella, logo, imagen;
         TextView marca, descripcion, precio, cantidad, grados;
         View color;
 
@@ -56,6 +60,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         ViewHolder(View itemView){
             super(itemView);
             botella = itemView.findViewById(R.id.botellaCerveza );
+            imagen = itemView.findViewById(R.id.botellaCerveza );
             logo = itemView.findViewById(R.id.idLogoCervezaMini);
             marca = itemView.findViewById(R.id.idTituloCervezaMini);
             descripcion = itemView.findViewById(R.id.idDescripcionCervezaMini);
@@ -80,4 +85,5 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public int getItemCount() {
         return mData.size();
     }
+
 }
