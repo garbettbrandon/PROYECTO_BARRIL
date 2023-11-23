@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment {
                                 String cantidad = (String) data.get(CANTIDAD);
                                 String grados = (String) data.get(GRADOS);
                                 String color = (String) data.get(COLOR);
-                                ListElement listElement = new ListElement(id,urlBotella, urlLogo,/*R.drawable.abadia_botella, R.drawable.birrablues_logo,*/ marca, descripcion, precio, cantidad, grados, color);
+                                ListElement listElement = new ListElement(id,urlBotella, urlLogo, marca, descripcion, precio, cantidad, grados, color);
 
                                 elements.add(listElement);
                             }
