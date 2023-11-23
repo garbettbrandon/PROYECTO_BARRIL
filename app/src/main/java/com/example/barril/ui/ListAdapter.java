@@ -3,7 +3,6 @@ package com.example.barril.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +11,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barril.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
+    private static final String BIRRA_AGREGADA = "Birra agregada a tu jarra";
+    private static final String ERROR_ALAGREGAR_CERVEZA = "Error al agregar la cerveza a favoritos";
+    private static final String YA_TIENES_ESTA_BIRRA = "La birra ya está en tu jarra";
+    private static final String FAVORITOS= "favoritos";
+    private static final String USUARIOS= "usuarios";
+
+
     private List<ListElement> mData;
     private LayoutInflater mInflater;
     private Context context;
@@ -35,7 +48,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         ImageView botella, logo, corazon;
         TextView marca, descripcion, precio, cantidad, grados;
         View color;
-
         FirebaseStorage storage;
         StorageReference storageRefBotella, storageRefLogo;
 
@@ -53,22 +65,21 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             grados = itemView.findViewById(R.id.idPorcentajeCervezaMini);
             color = itemView.findViewById(R.id.idColorCabeceraMini);
 
+
+            //agregarFavoritos
             corazon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // Cambiar el color del corazón a rojo
-
-                    //corazon.setColorFilter(ContextCompat.getColor(context, R.color.red), PorterDuff.Mode.SRC_IN);
+                    String idCerveza  = mData.get(getBindingAdapterPosition()).getId();
                     corazon.setImageResource(R.drawable.jarra2);
-
-                    // Puedes realizar otras acciones aquí, por ejemplo, agregar a favoritos, etc.
-                    showToast("Corazón clickeado en posición: " + getBindingAdapterPosition());
+                    cervezaFavorita(idCerveza);
                 }
             });
         }
-        private void showToast(String message) {
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-        }
+
+
+
+
         void bindData(final ListElement item){
             // Cargar desde una URL usando Picasso
             storage = FirebaseStorage.getInstance();
@@ -118,12 +129,99 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ListAdapter.ViewHolder holder, int position) {
         holder.bindData(mData.get(position));
 
+        //comprobar que le cerfveza esta y poner la jarra de color
+        String idCerveza = mData.get(position).getId();
+        isCervezaEnFavoritos(idCerveza, new Callback<Boolean>() {
+            @Override
+            public void onResult(Boolean result) {
+                if (result) {
+                    holder.corazon.setImageResource(R.drawable.jarra2);
+                }
+            }
+        });
+
+
 
     }
     @Override
     public int getItemCount() {
         return mData.size();
     }
+    //////////////////////////////////////METODOSSSSS///////////////////////////////////////////////////////////////////
+    private void cervezaFavorita(String idCerveza) {
+
+        // Aquí deberías agregar la lógica para guardar 'idCerveza' en la lista de favoritos del usuario en Firebase
+        // Puedes hacer esto actualizando el documento del usuario en la colección 'usuarios'
+        // y agregando 'idCerveza' a la matriz 'favoritos'.
+
+        // Ejemplo simplificado (no olvides manejar los casos de error y las tareas asincrónicas):
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+
+            // Referencia al documento del usuario en la colección 'usuarios'
+            DocumentReference userRef = FirebaseFirestore.getInstance().collection(FAVORITOS).document(userId);
+
+            // Obtener la lista actual de favoritos del usuario
+            userRef.get().addOnSuccessListener(documentSnapshot -> {
+                Set<String> favoritos = new HashSet<>((List<String>) documentSnapshot.get(USUARIOS));
+
+                // Asegurarse de que la lista exista
+                if (favoritos == null) {
+                    favoritos = new HashSet<>();
+                }
+
+                // Verificar si la cerveza ya está en la lista de favoritos
+                if (!favoritos.contains(idCerveza)) {
+                    // Agregar la nueva cerveza a la lista de favoritos
+                    favoritos.add(idCerveza);
+
+                    // Actualizar la lista de favoritos del usuario en Firebase
+                    userRef.update("favoritos", new ArrayList<>(favoritos))
+                            .addOnSuccessListener(aVoid -> {
+                                // Éxito al agregar la cerveza a la lista de favoritos
+                                showToast(BIRRA_AGREGADA);
+                            })
+                            .addOnFailureListener(e -> {
+                                // Manejar errores al actualizar la lista de favoritos
+                                showToast(ERROR_ALAGREGAR_CERVEZA);
+                            });
+                } else {
+                    showToast(YA_TIENES_ESTA_BIRRA);
+                }
+            });
+        }
+
+    }
+
+    private void isCervezaEnFavoritos(String idCerveza, Callback<Boolean> callback) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+
+            // Referencia al documento del usuario en la colección 'usuarios'
+            DocumentReference userRef = FirebaseFirestore.getInstance().collection(USUARIOS).document(userId);
+
+            // Obtener la lista actual de favoritos del usuario
+            userRef.get().addOnSuccessListener(documentSnapshot -> {
+                Set<String> favoritos = new HashSet<>((List<String>) documentSnapshot.get(FAVORITOS));
+
+                // Verificar si la cerveza ya está en la lista de favoritos
+                boolean isFavorita = favoritos != null && favoritos.contains(idCerveza);
+                callback.onResult(isFavorita);
+            });
+        } else {
+            callback.onResult(false);
+        }
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
 
 
+    //////////////////////////////////////////interfaz para manejar la asincronia//////////////////////////////////////////
+    interface Callback<T> {
+        void onResult(T result);
+    }
 }
