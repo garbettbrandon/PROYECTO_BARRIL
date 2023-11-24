@@ -18,6 +18,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Registrarse extends AppCompatActivity {
     private static String ERROR = "Error";
@@ -26,6 +32,7 @@ public class Registrarse extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore firestore;
     TextView idNombre, idApellido, idMail, idRegistroContrasenia;
     Button idAcceder, idIniciar;
     String userEmail;
@@ -36,6 +43,9 @@ public class Registrarse extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrarse);
+
+        firestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
 
 
@@ -62,26 +72,58 @@ public class Registrarse extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(!idMail.getText().toString().isEmpty() && !idRegistroContrasenia.getText().toString().isEmpty()){
-                    //esta linea realiza la comprobacion de no estar vacio y crea un usuario nuevo
-                    mAuth.getInstance().createUserWithEmailAndPassword(idMail.getText().toString(), idRegistroContrasenia.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // El inicio de sesión fue exitoso
-                                userEmail = task.getResult().getUser().getEmail();
-                                showHome(userEmail, MainActivity.ProviderType.BASIC);
-                                finish();
-                            } else {
-                                // El inicio de sesión falló
-                                //Toast.makeText(Registrarse.this, "Inicio de sesión no autorizado", Toast.LENGTH_SHORT).show();
-                                showAlert();
-                            }
-
-                        }
-                    });
+                    registrarUsuario();
                 }
             }
         });
+    }
+    //este metodo se encarga de registrar el usuario en firebase Auth
+    private void registrarUsuario(){
+        mAuth.getInstance().createUserWithEmailAndPassword(idMail.getText().toString(), idRegistroContrasenia.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // El inicio de sesión fue exitoso
+                    userEmail = task.getResult().getUser().getEmail();
+                    crearNuevoUsuarioEnDB(idNombre.getText().toString(), idApellido.getText().toString(), userEmail);
+                } else {
+                    // El inicio de sesión falló
+                    showAlert();
+                }
+
+            }
+        });
+    }
+    //este metodo se encarga de crear un usuario en la base de datos
+    private void crearNuevoUsuarioEnDB(String nombre, String apellido, String email) {
+
+
+        // Obtener la referencia del nuevo usuario en Firestore
+        DocumentReference nuevoUsuarioRef = firestore.collection("usuarios")
+                .document(mAuth.getCurrentUser().getUid());
+
+        // Crear un objeto Usuario con la información del nuevo usuario
+        Map<String, Object> nuevoUsuario = new HashMap<>();
+        nuevoUsuario.put("nombre", nombre);
+        nuevoUsuario.put("apellido", apellido);
+        nuevoUsuario.put("email", email);
+        nuevoUsuario.put("favoritos", new ArrayList<>());
+
+        // Configurar la referencia del nuevo usuario con la información
+        nuevoUsuarioRef.set(nuevoUsuario)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // Éxito al agregar el nuevo usuario a la colección "usuarios"
+                            showHome(email, MainActivity.ProviderType.BASIC);
+                            finish();
+                        } else {
+                            // Error al agregar el nuevo usuario a la colección "usuarios"
+                            showAlert();
+                        }
+                    }
+                });
     }
     private void showAlert(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -97,5 +139,9 @@ public class Registrarse extends AppCompatActivity {
         i.putExtra("email", email);
         i.putExtra("provider", pT);
         startActivity(i);
+        finish();
     }
+
+
+
 }

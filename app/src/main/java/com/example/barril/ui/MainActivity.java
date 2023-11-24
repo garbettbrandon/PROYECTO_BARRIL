@@ -29,7 +29,6 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
 
     public enum ProviderType{
         BASIC,
@@ -87,11 +86,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void recibirDatos() {
+        //db = FirebaseFirestore.getInstance();
         //-----------------------------AUTH FIREBASE RECIBE DATOS DE LOG IN--------------------------------------------------
         //recibir datos de autenticacion
         Intent intent = getIntent();
         String email = intent.getStringExtra("email");
+
+        //no recibe bien el provider auqnue se envie un BASIC desde el registrarse.class
         String pT = intent.getStringExtra("provider");
+        pT = "BASIC";
         ProviderType providerType = ProviderType.valueOf(pT);
         //Guardado de datos
         SharedPreferences.Editor sP = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit();

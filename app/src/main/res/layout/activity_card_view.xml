@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fontFamily="@font/"
-    tools:context=".ui.CardView">
+    tools:context=".ui.cards.CardView">
 
         <ImageView
             android:id="@+id/botellaCerveza"
@@ -21,9 +21,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/tercio" />
+            app:srcCompat="@drawable/vacio" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/idMeGustaMinii"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linearLayout"
-            app:srcCompat="@drawable/me_gusta" />
+            app:srcCompat="@drawable/jarra1" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -50,9 +50,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/idCardViewMini"
             android:layout_width="wrap_content"
             android:layout_height="370dp"
             android:backgroundTint="#f7f7f7"
+            android:clickable="true"
             app:cardCornerRadius="30dp"
             app:cardElevation="10dp">
 
@@ -75,7 +77,7 @@
                         android:layout_width="150dp"
                         android:layout_height="match_parent"
                         android:paddingRight="20dp"
-                        app:srcCompat="@drawable/_ebb054a4f_mahou_logo" />
+                        app:srcCompat="@drawable/vacio" />
 
                 </LinearLayout>
 
@@ -104,7 +106,7 @@
                             android:id="@+id/idTituloCervezaMini"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/secular"
                             android:shadowColor="#7A7979"
@@ -117,14 +119,26 @@
 
                         <TextView
                             android:id="@+id/idDescripcionCervezaMini"
-                            android:layout_width="180dp"
-                            android:layout_height="180dp"
-                            android:layout_marginLeft="5dp"
+                            android:layout_width="174dp"
+                            android:layout_height="141dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
                             android:fontFamily="@font/secular"
                             android:text="Mahou es una cerveza española de alta calidad con una larga historia y tradición. Es conocida por su sabor suave y equilibrado y su aroma fresco y cítrico. Es una cerveza popular en España y es ampliamente disponible en bares y tiendas."
                             android:textColor="@color/black"
                             android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/idTipo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/secular"
+                            android:shadowRadius="2"
+                            android:text="IPA"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
 
                     </LinearLayout>
 

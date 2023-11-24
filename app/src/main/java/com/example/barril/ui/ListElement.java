@@ -17,11 +17,12 @@ public class ListElement {
     public String urlBotella;
     public String urlLogo;
     public ImageView imagen;
+    public  String idTipo;
 
 
 
 
-    public ListElement(String id,String urlBotella, String urlLogo, String marca, String descripcion, String precio, String cantidad, String grados, String color) {
+    public ListElement(String id,String urlBotella, String urlLogo, String marca, String descripcion, String precio, String cantidad, String grados, String color, String idTipo) {
         this.id = id;
         this.urlBotella = urlBotella;
         this.urlLogo = urlLogo;
@@ -31,6 +32,15 @@ public class ListElement {
         this.cantidad = cantidad;
         this.grados = grados;
         this.color = color;
+        this.idTipo = idTipo;
+    }
+
+    public String getIdTipo() {
+        return idTipo;
+    }
+
+    public void setIdTipo(String idTipo) {
+        this.idTipo = idTipo;
     }
 
     public String getUrlLogo() {
