@@ -1,5 +1,6 @@
 package com.example.barril.ui;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
@@ -18,8 +19,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.barril.R;
+import com.example.barril.ui.admin.AgregarCervezasAdmin;
+import com.example.barril.ui.login.LogIn;
+import com.example.barril.ui.splashscreen.SplashScreen;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -61,8 +68,12 @@ public class HomeFragment extends Fragment {
     String color;
     String tipo;
 
+    ImageView masCervezasAdmin;
+
     ListElement listElement;
 
+    FirebaseAuth auth;
+    FirebaseUser user;
 
     public HomeFragment() {
     }
@@ -72,7 +83,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initRecyclerView(view);
+        masCervezasAdmin = view.findViewById(R.id.masCervezasAdmin);
+        masCervezasAdmin.setVisibility(View.INVISIBLE);
+        comprobarAdmin(recogerUserId());
         recogerDatosFirestore();
+        masCervezasAdmin.setOnClickListener(view1 -> {
+            agregarCervezasActivity();
+        });
+
         return view;
     }
 
@@ -120,6 +138,33 @@ public class HomeFragment extends Fragment {
                 });
 
     }
+    public  String recogerUserId(){
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        String userId = user.getUid();
+        return userId;
+    }
+    private void comprobarAdmin(String userId){
+        db.collection("usuarios").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        // El documento existe, ahora comprobar el campo "admin"
+                        boolean admin = document.contains("admin") ? document.getBoolean("admin") : false;
+                        ocultarBoton(admin);
+                    }
+                }
+            }
+        });
+    }
+
+    private void ocultarBoton(boolean admin){
+        if(admin == true){
+            masCervezasAdmin.setVisibility(View.VISIBLE);
+        }
+    }
     private void showAlert(){
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle(ERROR);
@@ -127,5 +172,10 @@ public class HomeFragment extends Fragment {
         builder.setPositiveButton(ACEPTAR, null);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private void agregarCervezasActivity(){
+        Intent intent = new Intent(getContext(), AgregarCervezasAdmin.class);
+        startActivity(intent);
     }
 }

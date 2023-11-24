@@ -8,13 +8,28 @@
     android:background="@drawable/bg_color"
     tools:context=".ui.HomeFragment">
 
+    <ImageView
+        android:translationZ="1dp"
+        android:id="@+id/masCervezasAdmin"
+        android:layout_width="45dp"
+        android:layout_height="44dp"
+        android:src="@drawable/mas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.918"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.893" />
+
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Novedades y cervezas"
+        android:text="BARRIL CERVECERO"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/secular"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,11 +37,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listRecyclerView"
-        android:layout_width="404dp"
-        android:layout_height="672dp"
+        android:layout_width="407dp"
+        android:layout_height="692dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2"
         app:layout_constraintVertical_bias="0.0" />
@@ -36,6 +50,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="55dp" />
+        app:layout_constraintGuide_begin="41dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

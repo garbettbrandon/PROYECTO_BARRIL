@@ -87,11 +87,14 @@
 
                         <Button
                             android:id="@+id/idBotonBorrar"
+                            style="@style/Widget.AppCompat.Button"
                             android:layout_width="60dp"
+
                             android:layout_height="match_parent"
                             android:layout_marginLeft="180dp"
-                            android:drawableRight="@drawable/beer"
-                            android:text="b" />
+                            android:drawableRight="@drawable/eliminar"
+                            android:stateListAnimator="@android:anim/bounce_interpolator"
+                            android:text="" />
 
                     </LinearLayout>
 
