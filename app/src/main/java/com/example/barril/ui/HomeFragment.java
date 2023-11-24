@@ -42,6 +42,7 @@ public class HomeFragment extends Fragment {
     public static final String CANTIDAD = "cantidad";
     public static final String GRADOS = "grados";
     public static final String COLOR = "color";
+    public static final String TIPO = "tipo";
     public static final String MENSAJE_NO_AUTORIZADO = "Error obteniendo datos de Firestore";
     private static String ERROR = "Error";
     private static String ACEPTAR = "Aceptar";
@@ -49,6 +50,18 @@ public class HomeFragment extends Fragment {
     List<ListElement> elements;
     private ListAdapter listAdapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    String urlBotella;
+    String urlLogo;
+    String marca;
+    String descripcion;
+    String precio;
+    String cantidad;
+    String grados;
+    String color;
+    String tipo;
+
+    ListElement listElement;
 
 
     public HomeFragment() {
@@ -68,7 +81,7 @@ public class HomeFragment extends Fragment {
         listAdapter = new ListAdapter(elements, getActivity());
         RecyclerView recyclerView = view.findViewById(R.id.listRecyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(listAdapter);
     }
 
@@ -84,15 +97,16 @@ public class HomeFragment extends Fragment {
                                 String id = document.getId();
                                 Map<String, Object> data = document.getData();
 
-                                String urlBotella = (String) data.get(URL_BOTELLA);
-                                String urlLogo = (String) data.get(URL_LOGO);
-                                String marca = (String) data.get(MARCA);
-                                String descripcion = (String) data.get(DESCRIPCION);
-                                String precio = (String) data.get(PRECIO);
-                                String cantidad = (String) data.get(CANTIDAD);
-                                String grados = (String) data.get(GRADOS);
-                                String color = (String) data.get(COLOR);
-                                ListElement listElement = new ListElement(id,urlBotella, urlLogo, marca, descripcion, precio, cantidad, grados, color);
+                                 urlBotella = (String) data.get(URL_BOTELLA);
+                                 urlLogo = (String) data.get(URL_LOGO);
+                                 marca = (String) data.get(MARCA);
+                                 descripcion = (String) data.get(DESCRIPCION);
+                                 precio = (String) data.get(PRECIO);
+                                 cantidad = (String) data.get(CANTIDAD);
+                                 grados = (String) data.get(GRADOS);
+                                 color = (String) data.get(COLOR);
+                                 tipo = (String) data.get(TIPO);
+                                 listElement = new ListElement(id,urlBotella, urlLogo, marca, descripcion, precio, cantidad, grados, color, tipo);
 
                                 elements.add(listElement);
                             }

@@ -46,7 +46,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView botella, logo, corazon;
-        TextView marca, descripcion, precio, cantidad, grados;
+        TextView marca, descripcion, precio, cantidad, grados, idTipo;
         View color;
         FirebaseStorage storage;
         StorageReference storageRefBotella, storageRefLogo;
@@ -64,6 +64,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             cantidad = itemView.findViewById(R.id.idTamanioCervezaMini);
             grados = itemView.findViewById(R.id.idPorcentajeCervezaMini);
             color = itemView.findViewById(R.id.idColorCabeceraMini);
+            idTipo = itemView.findViewById(R.id.idTipo);
+
 
 
             //agregarFavoritos
@@ -109,6 +111,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             cantidad.setText(item.getCantidad());
             grados.setText(item.getGrados());
             color.setBackgroundColor(Color.parseColor(item.getColor()));
+            idTipo.setText(item.getIdTipo());
         }
     }
 
@@ -160,11 +163,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             String userId = currentUser.getUid();
 
             // Referencia al documento del usuario en la colección 'usuarios'
-            DocumentReference userRef = FirebaseFirestore.getInstance().collection(FAVORITOS).document(userId);
+            DocumentReference userRef = FirebaseFirestore.getInstance().collection(USUARIOS).document(userId);
 
             // Obtener la lista actual de favoritos del usuario
             userRef.get().addOnSuccessListener(documentSnapshot -> {
-                Set<String> favoritos = new HashSet<>((List<String>) documentSnapshot.get(USUARIOS));
+                Set<String> favoritos = new HashSet<>((List<String>) documentSnapshot.get(FAVORITOS));
 
                 // Asegurarse de que la lista exista
                 if (favoritos == null) {

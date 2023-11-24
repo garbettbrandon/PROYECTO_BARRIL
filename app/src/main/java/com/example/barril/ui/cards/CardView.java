@@ -1,4 +1,4 @@
-package com.example.barril.ui;
+package com.example.barril.ui.cards;
 
 import static androidx.core.content.ContentProviderCompat.requireContext;
 
