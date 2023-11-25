@@ -3,6 +3,7 @@ package com.example.barril.ui.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,7 +34,7 @@ public class Registrarse extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
-    TextView idNombre, idApellido, idMail, idRegistroContrasenia;
+    TextView idNombre, idApellido, idMail, idRegistroContrasenia, idErrorContrasenia, idReRegistroContrasenia;
     Button idAcceder, idIniciar;
     String userEmail;
 
@@ -41,6 +42,7 @@ public class Registrarse extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrarse);
 
@@ -57,6 +59,12 @@ public class Registrarse extends AppCompatActivity {
         idAcceder= findViewById(R.id.idAcceder);
         idIniciar= findViewById(R.id.idIniciar);
 
+        idReRegistroContrasenia = findViewById(R.id.idRegistroReContrasenia);
+        idErrorContrasenia = findViewById(R.id.errorContrasenia);
+
+        idErrorContrasenia.setVisibility(View.INVISIBLE);
+
+
         idIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,9 +78,22 @@ public class Registrarse extends AppCompatActivity {
         idAcceder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String contrasenia = idRegistroContrasenia.getText().toString();
+                String confirmacionContrasenia = idReRegistroContrasenia.getText().toString();
 
-                if(!idMail.getText().toString().isEmpty() && !idRegistroContrasenia.getText().toString().isEmpty()){
-                    registrarUsuario();
+                if (!contrasenia.equals(confirmacionContrasenia)) {
+                    // Mostrar mensaje de error si las contraseñas no coinciden
+                    idErrorContrasenia.setVisibility(View.VISIBLE);
+
+                    // Deshabilitar el botón de acceso si las contraseñas no coinciden
+
+                } else {
+                    // Ocultar el mensaje de error si las contraseñas coinciden
+                    idErrorContrasenia.setVisibility(View.INVISIBLE);
+
+                    if(!idMail.getText().toString().isEmpty() && !idRegistroContrasenia.getText().toString().isEmpty()){
+                        registrarUsuario();
+                    }
                 }
             }
         });
