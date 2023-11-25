@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout2"
-        app:srcCompat="@drawable/abadia_botella" />
+        app:srcCompat="@drawable/botellabase" />
 
 
     <LinearLayout
@@ -75,8 +75,7 @@
                         android:fontFamily="@font/secular"
                         android:paddingTop="4dp"
                         android:paddingLeft="5dp"
-                        android:text="Mahou es una cerveza española de alta calidad con una larga historia y tradición. Es conocida por su sabor suave y equilibrado y su aroma fresco y cítrico. Es una cerveza popular en España."
-                        android:textColor="@color/black"
+                        android:text="Mahou es una cerveza española de alta calidad con una larga historia y tradición. "                  android:textColor="@color/black"
                         android:textSize="12sp" />
 
 

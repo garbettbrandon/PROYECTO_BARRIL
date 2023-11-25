@@ -9,14 +9,15 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="161dp"
-        android:layout_height="130dp"
+        android:layout_width="132dp"
+        android:layout_height="123dp"
+        android:background="@drawable/bg_color"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.468"
-        app:srcCompat="@drawable/barril1" />
+        app:srcCompat="@drawable/icon_barril" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -93,6 +94,14 @@
                 android:background="@drawable/borde" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="70dp"
+            android:textColor="@color/orange"
+            android:text="Ej: nombre@tumail.com" />
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
             android:layout_width="match_parent"
@@ -109,6 +118,15 @@
                 android:background="@drawable/borde"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="70dp"
+            android:textColor="@color/orange"
+            android:text="Mínimo 6 carácteres" />
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
             android:layout_width="match_parent"
@@ -125,6 +143,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/borde"
                 android:inputType="textPassword" />
+
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
@@ -143,15 +162,15 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
                 android:drawableRight="@drawable/icono_entrar"
-                android:text="acceder" />
+                android:text="Comenzar" />
 
             <Button
                 android:id="@+id/idIniciar"
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
                 android:drawableRight="@drawable/acceso"
-                android:text="Iniciar Sesion" />
+                android:text="Ir a Iniciar Sesion" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

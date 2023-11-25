@@ -1,6 +1,7 @@
 package com.example.barril.ui;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
@@ -75,6 +76,8 @@ public class HomeFragment extends Fragment {
     FirebaseAuth auth;
     FirebaseUser user;
 
+    Configuration configuration;
+
     public HomeFragment() {
     }
 
@@ -83,14 +86,15 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initRecyclerView(view);
+
         masCervezasAdmin = view.findViewById(R.id.masCervezasAdmin);
         masCervezasAdmin.setVisibility(View.INVISIBLE);
         comprobarAdmin(recogerUserId());
-        recogerDatosFirestore();
         masCervezasAdmin.setOnClickListener(view1 -> {
             agregarCervezasActivity();
-        });
 
+        });
+        recogerDatosFirestore();
         return view;
     }
 
@@ -138,6 +142,7 @@ public class HomeFragment extends Fragment {
                 });
 
     }
+
     public  String recogerUserId(){
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -159,6 +164,10 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+    private void agregarCervezasActivity(){
+        Intent intent = new Intent(getContext(), AgregarCervezasAdmin.class);
+        startActivity(intent);
+    }
 
     private void ocultarBoton(boolean admin){
         if(admin == true){
@@ -174,8 +183,5 @@ public class HomeFragment extends Fragment {
         alertDialog.show();
     }
 
-    private void agregarCervezasActivity(){
-        Intent intent = new Intent(getContext(), AgregarCervezasAdmin.class);
-        startActivity(intent);
-    }
+
 }

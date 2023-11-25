@@ -53,7 +53,7 @@ public class GuardadoAdapter extends RecyclerView.Adapter<GuardadoAdapter.ViewHo
             idTituloGuardado = itemView.findViewById(R.id.idTituloGuardado);
             idBotellaGuardado = itemView.findViewById(R.id.idBotellaGuardado);
             idColorCabeceraGuardado = itemView.findViewById(R.id.idColorCabeceraGuardado);
-            idDescripcionGuardado = itemView.findViewById(R.id.idTituloGuardado);
+            idDescripcionGuardado = itemView.findViewById(R.id.idDescripcionGuardado);
             idBotonBorrar = itemView.findViewById(R.id.idBotonBorrar);
 
             idBotonBorrar.setOnClickListener(view -> {
