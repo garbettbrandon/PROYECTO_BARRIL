@@ -7,6 +7,21 @@
     android:background="@drawable/bg_color"
     tools:context=".ui.admin.AgregarCervezasAdmin">
 
+    <!--<ImageView
+        android:id="@+id/idVectorCervezaAdmin"
+        android:layout_width="55dp"
+        android:layout_height="150dp"
+        android:layout_weight="1"
+        android:translationZ="10dp"
+        android:layout_marginLeft="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.011"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.738"
+        app:srcCompat="@drawable/botellabase" />-->
+
     <EditText
         android:id="@+id/idTipoAdmin"
         android:layout_width="63dp"
@@ -276,10 +291,11 @@
                         android:layout_height="match_parent"
                         android:elevation="15dp"
                         android:gravity="center">
+
                         <ImageView
                             android:id="@+id/idVectorCervezaAdmin"
-                            android:layout_width="6dp"
-                            android:layout_height="130dp"
+                            android:layout_width="105dp"
+                            android:layout_height="119dp"
                             android:layout_weight="1"
                             android:translationZ="1dp"
                             app:srcCompat="@drawable/botellabase" />
