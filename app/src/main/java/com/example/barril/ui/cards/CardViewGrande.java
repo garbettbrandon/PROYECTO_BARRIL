@@ -68,8 +68,14 @@ public class CardViewGrande extends AppCompatActivity {
         idColorCabeceraGrande = findViewById(R.id.idColorCabeceraGrande);
 
         Intent intent = getIntent();
+
         String idDocumento = intent.getStringExtra("idDocumento");
-        recogerDatos(idDocumento);
+        if(idDocumento.equals("01")){
+
+        }else{
+            recogerDatos(idDocumento);
+        }
+
     }
 
     public void recogerDatos( String idDocumento){
