@@ -3,15 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_color"
     tools:context=".ui.cards.CardViewGrande">
 
+    <ImageView
+        android:id="@+id/idBotellaGrande"
+        android:layout_width="108dp"
+        android:layout_height="269dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="290dp"
+        android:layout_marginBottom="290dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/botellabase"
+        android:translationZ="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/idLogoGrande"
+        android:layout_width="93dp"
+        android:layout_height="109dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginBottom="560dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logobase"
+        android:translationZ="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="650dp"
+        android:id="@+id/linearLayout3"
+        android:layout_width="410dp"
+        android:layout_height="730dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
+
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,6 +65,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/idColorCabeceraGrande"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
                     android:background="@color/red"
@@ -46,12 +79,34 @@
                     android:background="#F4F4F4"
                     android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/idModeloGrande"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="110dp"
+                        android:textSize="22dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/secular"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="Modelo" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/idMarcaGrande"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="110dp"
+                        android:textSize="19dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/secular"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="Marca" />
 
                 </LinearLayout>
 
@@ -59,10 +114,145 @@
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
                     android:background="#F4F4F4"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:background="#F4F4F4"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/idDescripcionGrande"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginStart="120dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/secular"
+                            android:text="TextView"
+                            android:textColor="@color/black"
+                            android:textSize="14dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:background="#F4F4F4"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="185dp"
+                            android:layout_height="140dp"
+                            android:background="#F4F4F4"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/idRadarGrande"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/barril" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="180dp"
+                            android:layout_height="140dp"
+                            android:background="#F4F4F4"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/idTituloMaridaje"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:fontFamily="@font/secular"
+                                android:gravity="center"
+                                android:text="Maridaje"
+                                android:textSize="19dp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/idMaridaje"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:srcCompat="@tools:sample/avatars" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="6dp"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="35dp"
+                        android:layout_weight="1"
+                        android:translationZ="10dp"
+                        app:srcCompat="@drawable/cerveza" />
+
+                    <TextView
+                        android:id="@+id/idCantidadGrande"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:text="00" />
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="6dp"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="35dp"
+                        android:layout_weight="1"
+                        android:translationZ="10dp"
+                        app:srcCompat="@drawable/precio" />
+
+                    <TextView
+                        android:id="@+id/idPrecioGrande"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:text="00" />
+
+                    <ImageView
+                        android:id="@+id/imageView7"
+                        android:layout_width="6dp"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="35dp"
+                        android:layout_weight="1"
+                        android:translationZ="10dp"
+                        app:srcCompat="@drawable/porcentaje" />
+
+                    <TextView
+                        android:id="@+id/idGradosGrande"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:text="00" />
+                </LinearLayout>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/idVolverBotonGrande"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Cerrar" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

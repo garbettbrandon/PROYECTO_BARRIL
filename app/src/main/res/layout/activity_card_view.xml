@@ -12,8 +12,8 @@
             android:layout_width="76dp"
             android:layout_height="226dp"
             android:backgroundTint="#f7f7f7"
-            android:scaleType="fitCenter"
             android:translationZ="1dp"
+            android:scaleType="fitCenter"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="290dp"
             android:layout_marginBottom="65dp"
@@ -170,7 +170,7 @@
                             android:layout_height="30dp"
                             android:fontFamily="@font/secular"
                             android:gravity="center"
-                            android:text="hola"
+                            android:text="cant."
                             android:textColor="@color/black"
                             android:textSize="17sp" />
 
@@ -193,7 +193,7 @@
                             android:layout_height="30dp"
                             android:fontFamily="@font/secular"
                             android:gravity="center"
-                            android:text="hola"
+                            android:text="precio"
                             android:textColor="@color/black"
                             android:textSize="17sp" />
 
@@ -218,7 +218,7 @@
                             android:layout_height="30dp"
                             android:fontFamily="@font/secular"
                             android:gravity="center"
-                            android:text="hola"
+                            android:text="grad."
                             android:textColor="@color/black"
                             android:textSize="17sp" />
 

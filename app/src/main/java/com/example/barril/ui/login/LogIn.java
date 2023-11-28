@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,10 +83,11 @@ public class LogIn extends AppCompatActivity {
 
         idUsuario = findViewById(R.id.idUsuario);
         idContrasenia = findViewById(R.id.idContrasenia);
-        idOlvidado = findViewById(R.id.idOlvidado);
         idBotonEntrar = findViewById(R.id.idBotonEntrar);
         idRegistro = findViewById(R.id.idRegistro);
         idEntrarGoogle = findViewById(R.id.idEntrarGoogle);
+
+        idEntrarGoogle.setVisibility(View.INVISIBLE);
 
 
 
@@ -136,9 +138,6 @@ public class LogIn extends AppCompatActivity {
 
         });
 
-       idOlvidado.setOnClickListener(view -> {
-            Toast.makeText(LogIn.this, "Contraseña olvidada", Toast.LENGTH_SHORT).show();
-        });
 
     }
     private void showAlert(){
