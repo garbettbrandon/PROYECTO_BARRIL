@@ -1,9 +1,8 @@
-package com.example.barril.ui;
+package com.example.barril.ui.acountfragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -146,17 +145,17 @@ public class GuardadoAdapter extends RecyclerView.Adapter<GuardadoAdapter.ViewHo
                     userRef.update("favoritos", favoritos)
                             .addOnSuccessListener(aVoid -> {
                                 // Éxito al eliminar la cerveza de la lista de favoritos en Firebase
-                                showToast("CERVEZA_ELIMINADA_EXITOSAMENTE");
+                                showToast("CERVEZA ELIMINADA EXITOSAMENTE");
                                 // Eliminar el elemento de la lista localmente
                                 mData.remove(position);
                                 notifyItemRemoved(position);
                             })
                             .addOnFailureListener(e -> {
                                 // Manejar errores al actualizar la lista de favoritos
-                                showToast("ERROR_AL_ELIMINAR_CERVEZA");
+                                showToast("ERROR AL ELIMINAR CERVEZA");
                             });
                 } else {
-                    showToast("CERVEZA_NO_ENCONTRADA");
+                    showToast("CERVEZA NO ENCONTRADA");
                 }
             });
         }

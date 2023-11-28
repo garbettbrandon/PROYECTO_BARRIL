@@ -1,4 +1,4 @@
-package com.example.barril.ui;
+package com.example.barril.ui.homefragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private static final String BIRRA_AGREGADA = "Birra agregada a tu jarra";

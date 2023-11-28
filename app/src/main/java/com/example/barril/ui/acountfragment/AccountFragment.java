@@ -1,4 +1,4 @@
-package com.example.barril.ui;
+package com.example.barril.ui.acountfragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,15 +19,10 @@ import android.widget.Toast;
 
 import com.example.barril.R;
 import com.example.barril.ui.login.LogIn;
-import com.example.barril.ui.login.Registrarse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;

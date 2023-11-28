@@ -1,4 +1,4 @@
-package com.example.barril.ui;
+package com.example.barril.ui.searchfragment;
 
 import android.os.Bundle;
 

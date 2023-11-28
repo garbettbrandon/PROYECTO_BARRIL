@@ -1,4 +1,4 @@
-package com.example.barril.ui;
+package com.example.barril.ui.homefragment;
 
 import android.media.Image;
 import android.view.View;

@@ -1,4 +1,4 @@
-package com.example.barril.ui;
+package com.example.barril.ui.locationfragment;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;

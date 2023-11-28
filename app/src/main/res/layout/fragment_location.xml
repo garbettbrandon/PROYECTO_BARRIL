@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_color"
-    tools:context=".ui.LocationFragment">
+    tools:context=".ui.locationfragment.LocationFragment">
 
     <!-- Utiliza SupportMapFragment como contenedor para el mapa -->
     <fragment
