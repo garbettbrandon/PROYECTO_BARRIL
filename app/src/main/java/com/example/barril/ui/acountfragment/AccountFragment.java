@@ -34,7 +34,7 @@ public class AccountFragment extends Fragment {
     TextView id_tipo_inicio, idNombreBarril;
     Button id_cerrar_sesion;
 
-    List<GuardadoList> elements;
+    List<GuardadoElement> elements;
     private GuardadoAdapter guardadoAdapter;
 
 
@@ -162,7 +162,7 @@ public class AccountFragment extends Fragment {
                 String color = (String) task.getResult().get("color");
 
                 // Crear un objeto GuardadoList y agregarlo a la lista
-                GuardadoList guardadoList = new GuardadoList(nombre, descripcion, urlBotella, color, cervezaId);
+                GuardadoElement guardadoList = new GuardadoElement(nombre, descripcion, urlBotella, color, cervezaId);
                 elements.add(guardadoList);
 
                 // Notificar al adaptador sobre el cambio en los datos

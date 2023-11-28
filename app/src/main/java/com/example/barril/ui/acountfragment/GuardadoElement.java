@@ -1,6 +1,6 @@
 package com.example.barril.ui.acountfragment;
 
-public class GuardadoList {
+public class GuardadoElement {
 
     String titulo;
     String descripcion;
@@ -8,7 +8,7 @@ public class GuardadoList {
     String color;
     String cervezaId;
 
-    public GuardadoList(String titulo, String descripcion, String urlBotella, String color, String cervezaId) {
+    public GuardadoElement(String titulo, String descripcion, String urlBotella, String color, String cervezaId) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.urlBotella = urlBotella;
