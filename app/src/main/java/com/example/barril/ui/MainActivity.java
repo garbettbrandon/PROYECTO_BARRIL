@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -65,28 +66,29 @@ public class MainActivity extends AppCompatActivity {
         cameraBtn.setOnClickListener(view -> {
 
         });
+        /*FloatingActionButton cameraBtn = binding.cameraButton;
+        cameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+                integrator.setOrientationLocked(false);
+                integrator.setPrompt("Escanea tu cerveza");
+                integrator.setCameraId(0);
+                integrator.setBeepEnabled(true);
+                integrator.setBarcodeImageEnabled(true);
+                integrator.initiateScan();
+            }
+        });*/
+
 
 
 
     }
 
-    /*FloatingActionButton cameraBtn = binding.cameraButton;
-        cameraBtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
-            integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-            integrator.setOrientationLocked(false);
-            integrator.setPrompt("Escanea tu cerveza");
-            integrator.setCameraId(0);
-            integrator.setBeepEnabled(true);
-            integrator.setBarcodeImageEnabled(true);
-            integrator.initiateScan();
-        }
-    });
 
 
-   protected void onActivityResult(int requestCode, int resultCode, Intent data){
+   /*protected void onActivityResult(int requestCode, int resultCode, Intent data){
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode, data);
 
         if (result != null){
