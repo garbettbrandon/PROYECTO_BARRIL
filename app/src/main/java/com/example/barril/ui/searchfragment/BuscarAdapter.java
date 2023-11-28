@@ -2,6 +2,7 @@ package com.example.barril.ui.acountfragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barril.R;
+import com.example.barril.ui.MainActivity;
+import com.example.barril.ui.cards.CardViewGrande;
 import com.example.barril.ui.searchfragment.BuscarElement;
+import com.example.barril.ui.searchfragment.SearchFragment;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -38,10 +45,14 @@ public class BuscarAdapter extends RecyclerView.Adapter<com.example.barril.ui.ac
         TextView idTituloGuardado, idDescripcionGuardado;
         View idColorCabeceraGuardado;
 
-        Button idBotonBorrar;
+        Button idBotonBorrar, idBotonMas;
 
         FirebaseStorage storage;
-        StorageReference storageRefBotellaGuardado, storageRefLogoGuardado;
+        FirebaseFirestore db;
+        DocumentReference cervezasRef;
+
+
+        StorageReference storageRefBotellaGuardado;
 
         @SuppressLint("ResourceType")
         ViewHolder(View itemView) {
@@ -51,15 +62,33 @@ public class BuscarAdapter extends RecyclerView.Adapter<com.example.barril.ui.ac
             idColorCabeceraGuardado = itemView.findViewById(R.id.idColorCabeceraGuardado);
             idDescripcionGuardado = itemView.findViewById(R.id.idDescripcionGuardado);
             idBotonBorrar = itemView.findViewById(R.id.idBotonBorrar);
+            idBotonMas = itemView.findViewById(R.id.idBotonMas);
 
-            /*idBotonBorrar.setOnClickListener(view -> {
-                int position = getBindingAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    //borrarCerveza(position);
-                }
-            });**/
+            idBotonBorrar.setVisibility(View.INVISIBLE);
+
+            idBotonMas.setOnClickListener(view -> {
+                String cervezaId = mData.get(getBindingAdapterPosition()).getCervezaId();
+                buscarEnBase(cervezaId);
+            });
+
 
         }
+
+        private void buscarEnBase(String contents) {
+            db = FirebaseFirestore.getInstance();
+            cervezasRef = db.collection("cervezas").document(contents);
+            cervezasRef.get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                enviarDocumentoCardGrande(contents.toString());
+                            }
+                        }
+                    });
+
+        }
+
 
 
 
@@ -71,7 +100,7 @@ public class BuscarAdapter extends RecyclerView.Adapter<com.example.barril.ui.ac
 
             // Recuperar la URL de la imagen
             storageRefBotellaGuardado.getDownloadUrl().addOnSuccessListener(uri -> {
-                // Aquí tienes la URL de la imagen
+                // Aquí esta la URL de la imagen
                 String imageUrl = uri.toString();
 
                 // Cargar la imagen en el ImageView usando Picasso
@@ -83,6 +112,9 @@ public class BuscarAdapter extends RecyclerView.Adapter<com.example.barril.ui.ac
             idColorCabeceraGuardado.setBackgroundColor(Color.parseColor(item.getColor()));
         }
     }
+
+
+
     public BuscarAdapter (List<BuscarElement> itemList, Context context){
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
@@ -91,7 +123,8 @@ public class BuscarAdapter extends RecyclerView.Adapter<com.example.barril.ui.ac
     @NonNull
     @Override
     public com.example.barril.ui.acountfragment.BuscarAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.activity_card_guardadas,null);
+        //reutilizamos tarjeta para mostrar datos
+        View view = mInflater.inflate(R.layout.activity_card_basico,null);
         return new com.example.barril.ui.acountfragment.BuscarAdapter.ViewHolder(view);
     }
 
@@ -105,9 +138,11 @@ public class BuscarAdapter extends RecyclerView.Adapter<com.example.barril.ui.ac
     }
 
     ////////////////////////////////////////metodos///////////////////////////////////////////////////
-
-
-
+    private void enviarDocumentoCardGrande(String data) {
+        Intent i = new Intent(context, CardViewGrande.class);
+        i.putExtra("idDocumento", data);
+        context.startActivity(i);
+    }
     private void showToast(String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }

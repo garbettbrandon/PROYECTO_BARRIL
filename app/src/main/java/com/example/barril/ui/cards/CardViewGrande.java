@@ -1,8 +1,10 @@
 package com.example.barril.ui.cards;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -49,6 +51,8 @@ public class CardViewGrande extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_card_view_grande);
 
         idBotellaGrande = findViewById(R.id.idBotellaGrande);
@@ -68,13 +72,13 @@ public class CardViewGrande extends AppCompatActivity {
         idColorCabeceraGrande = findViewById(R.id.idColorCabeceraGrande);
 
         Intent intent = getIntent();
-
         String idDocumento = intent.getStringExtra("idDocumento");
-        if(idDocumento.equals("01")){
 
-        }else{
-            recogerDatos(idDocumento);
-        }
+        recogerDatos(idDocumento);
+
+        idVolverBotonGrande.setOnClickListener(view->{
+            finish();
+        });
 
     }
 
@@ -164,4 +168,6 @@ public class CardViewGrande extends AppCompatActivity {
         idCantidadGrande.setText(cantidad);
         idGradosGrande.setText(grados);
     }
+
+
 }

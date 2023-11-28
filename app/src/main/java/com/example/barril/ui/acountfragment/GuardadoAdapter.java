@@ -41,7 +41,7 @@ public class GuardadoAdapter extends RecyclerView.Adapter<GuardadoAdapter.ViewHo
         TextView idTituloGuardado, idDescripcionGuardado;
         View idColorCabeceraGuardado;
 
-        Button idBotonBorrar;
+        Button idBotonBorrar, idBotonMas;
 
         FirebaseStorage storage;
         StorageReference storageRefBotellaGuardado, storageRefLogoGuardado;
@@ -54,6 +54,9 @@ public class GuardadoAdapter extends RecyclerView.Adapter<GuardadoAdapter.ViewHo
             idColorCabeceraGuardado = itemView.findViewById(R.id.idColorCabeceraGuardado);
             idDescripcionGuardado = itemView.findViewById(R.id.idDescripcionGuardado);
             idBotonBorrar = itemView.findViewById(R.id.idBotonBorrar);
+            idBotonMas = itemView.findViewById(R.id.idBotonMas);
+
+            idBotonMas.setVisibility(View.INVISIBLE);
 
             idBotonBorrar.setOnClickListener(view -> {
                 int position = getBindingAdapterPosition();
@@ -94,7 +97,7 @@ public class GuardadoAdapter extends RecyclerView.Adapter<GuardadoAdapter.ViewHo
     @NonNull
     @Override
     public GuardadoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.activity_card_guardadas,null);
+        View view = mInflater.inflate(R.layout.activity_card_basico,null);
         return new GuardadoAdapter.ViewHolder(view);
     }
 

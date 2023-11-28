@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        replaceFragment(new HomeFragment());
+
 
         binding.bottomNavigationView.setBackground(null);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+        replaceFragment(new HomeFragment());
     }
 
 

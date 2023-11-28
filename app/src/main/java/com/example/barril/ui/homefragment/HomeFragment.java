@@ -157,6 +157,7 @@ public class HomeFragment extends Fragment {
     private void agregarCervezasActivity(){
         Intent intent = new Intent(getContext(), AgregarCervezasAdmin.class);
         startActivity(intent);
+        getActivity().finish();
     }
 
     private void ocultarBoton(boolean admin){

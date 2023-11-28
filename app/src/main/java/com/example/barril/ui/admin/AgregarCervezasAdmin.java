@@ -1,5 +1,7 @@
 package com.example.barril.ui.admin;
 
+import static com.example.barril.ui.MainActivity.ProviderType.BASIC;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
@@ -19,8 +21,9 @@ import android.widget.TextView;
 
 import com.example.barril.R;
 import com.example.barril.ui.MainActivity;
-import com.example.barril.ui.login.LogIn;
-import com.example.barril.ui.splashscreen.SplashScreen;
+import com.example.barril.ui.auth.LogIn;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -49,6 +52,9 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
     FirebaseFirestore db;
     FirebaseStorage storage;
     StorageReference storageRef;
+    FirebaseAuth mAuth;
+    FirebaseUser user;
+    String email;
 
 
 
@@ -132,8 +138,20 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
 
         // Evento de clic para volver
         idBotonVolverAdmin.setOnClickListener(view -> {
+            mAuth = FirebaseAuth.getInstance();
+            user = mAuth.getCurrentUser();
+            email = user.getEmail();
+
+            Intent i = new Intent(AgregarCervezasAdmin.this, MainActivity.class);
+            i.putExtra("email", email);
+            i.putExtra("provider", BASIC);
+            startActivity(i);
             finish();
         });
+    }
+
+    private void recogerDatosParaRefrescar(){
+
     }
 
     private final ActivityResultLauncher<String> galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {

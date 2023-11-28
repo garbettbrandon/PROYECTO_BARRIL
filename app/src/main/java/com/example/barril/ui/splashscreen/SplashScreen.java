@@ -11,9 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.example.barril.R;
-import com.example.barril.ui.MainActivity;
-import com.example.barril.ui.login.LogIn;
-import com.example.barril.ui.login.Registrarse;
+import com.example.barril.ui.auth.LogIn;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class SplashScreen extends AppCompatActivity {

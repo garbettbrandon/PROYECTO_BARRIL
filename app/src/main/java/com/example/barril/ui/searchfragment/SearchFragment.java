@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.example.barril.R;
 import com.example.barril.ui.acountfragment.BuscarAdapter;
@@ -49,16 +50,50 @@ public class SearchFragment extends Fragment {
     RecyclerView recyclerView;
     BuscarAdapter buscarAdapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private SearchView searchView;
+    private List<BuscarElement> filteredElements;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         initRecyclerView(view);
+        initSearchView(view);
         recogerDatosFirestore();
         return view;
     }
+    ////////////////////////////////////////metodos filtrado///////////////////////////////////
+    private void initSearchView(View view) {
+        searchView = view.findViewById(R.id.idBuscador);
+        filteredElements = new ArrayList<>();
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterElements(newText);
+                return true;
+            }
+        });
+    }
+
+    private void filterElements(String query) {
+        filteredElements.clear();
+
+        for (BuscarElement element : elements) {
+            if (element.getTitulo().toLowerCase().contains(query.toLowerCase()) ||
+                    element.getDescripcion().toLowerCase().contains(query.toLowerCase())) {
+                filteredElements.add(element);
+            }
+        }
+        buscarAdapter.semItems(filteredElements);
+        buscarAdapter.notifyDataSetChanged();
+    }
+////////////////////////////////////////////////////////iniciar recycler////////////////////////////////
     private void initRecyclerView(View view) {
         elements= new ArrayList<>();
         buscarAdapter = new BuscarAdapter(elements, getActivity());
@@ -67,6 +102,7 @@ public class SearchFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(buscarAdapter);
     }
+    ////////////////////////////////////////recoger datos firebase y añadirlas al objeto////////////////////////////////////////
     private void recogerDatosFirestore() {
         db.collection("cervezas")
                 .get()

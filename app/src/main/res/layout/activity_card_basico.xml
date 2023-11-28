@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.cards.CardGuardadas">
+    tools:context=".ui.cards.CardBasico">
 
     <ImageView
         android:translationZ="1dp"
@@ -88,10 +88,18 @@
                             android:id="@+id/idBotonBorrar"
                             style="@style/Widget.AppCompat.Button"
                             android:layout_width="60dp"
-
                             android:layout_height="match_parent"
                             android:layout_marginLeft="180dp"
                             android:drawableRight="@drawable/eliminar"
+                            android:stateListAnimator="@android:anim/bounce_interpolator"
+                            android:text="" />
+                        <Button
+                            android:id="@+id/idBotonMas"
+                            style="@style/Widget.AppCompat.Button"
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="-60dp"
+                            android:drawableRight="@drawable/mas_puntos"
                             android:stateListAnimator="@android:anim/bounce_interpolator"
                             android:text="" />
 

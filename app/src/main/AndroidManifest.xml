@@ -27,10 +27,10 @@
             android:name=".ui.admin.AgregarCervezasAdmin"
             android:exported="false" />
         <activity
-            android:name=".ui.cards.CardGuardadas"
+            android:name=".ui.cards.CardBasico"
             android:exported="false" />
         <activity
-            android:name=".ui.login.Registrarse"
+            android:name=".ui.auth.Registrarse"
             android:exported="false" />
         <activity
             android:name=".ui.splashscreen.SplashScreen"
@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.login.LogIn"
+            android:name=".ui.auth.LogIn"
             android:exported="false" />
         <activity
             android:name=".ui.cards.CardView"
