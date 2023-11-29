@@ -3,20 +3,21 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.barril.R;
+import com.example.barril.ui.admin.AgregarLugarAdmin;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,14 +26,25 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser user;
+
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
+    ImageView masMapasAdmin;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,10 +55,14 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        // Agregar un clic al fragmento para mostrar un Toast
+        masMapasAdmin = rootView.findViewById(R.id.masMapasAdmin);
+        masMapasAdmin.setVisibility(View.INVISIBLE);
+        comprobarAdmin(recogerUserId());
 
-                showToast("Fragment clicked!");
-
+        masMapasAdmin.setOnClickListener(view ->{
+            Intent intent = new Intent(getContext(), AgregarLugarAdmin.class);
+            startActivity(intent);
+        });
 
         return rootView;
     }
@@ -57,69 +73,13 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         BitmapDescriptor icono = BitmapDescriptorFactory.fromResource(R.drawable.icono_maps);
 
-        // Marcador en la Puerta del Sol, Madrid
+       /* // Intoducior uno a uno
         LatLng puertaDelSol = new LatLng(40.4169, -3.7038);
-        mMap.addMarker(new MarkerOptions().position(puertaDelSol).title("Puerta del Sol, Madrid").icon(icono));
-
-        // Marcador en el Parque del Retiro, Madrid
-        LatLng retiroPark = new LatLng(40.4150, -3.6842);
-        mMap.addMarker(new MarkerOptions().position(retiroPark).title("Parque del Retiro, Madrid").icon(icono));
-
-        // Marcador en la Plaza Mayor, Madrid
-        LatLng plazaMayor = new LatLng(40.4155, -3.7074);
-        mMap.addMarker(new MarkerOptions().position(plazaMayor).title("Plaza Mayor, Madrid").icon(icono));
-
-        // Marcador en Gran Vía, Madrid
-        LatLng granVia = new LatLng(40.4181, -3.7019);
-        mMap.addMarker(new MarkerOptions().position(granVia).title("Gran Vía, Madrid").icon(icono));
-
-        // Marcador en el Templo de Debod, Madrid
-        LatLng temploDeDebod = new LatLng(40.4114, -3.6932);
-        mMap.addMarker(new MarkerOptions().position(temploDeDebod).title("Templo de Debod, Madrid").icon(icono));
-
-        // Marcador en el Museo del Prado, Madrid
-        LatLng museoDelPrado = new LatLng(40.4040, -3.6965);
-        mMap.addMarker(new MarkerOptions().position(museoDelPrado).title("Museo del Prado, Madrid").icon(icono));
-
-        // Marcador en Malasaña, Madrid
-        LatLng malasana = new LatLng(40.4194, -3.6923);
-        mMap.addMarker(new MarkerOptions().position(malasana).title("Malasaña, Madrid").icon(icono));
-
-        // Marcador en Tribunal, Madrid
-        LatLng tribunal = new LatLng(40.4264, -3.7034);
-        mMap.addMarker(new MarkerOptions().position(tribunal).title("Tribunal, Madrid").icon(icono));
-
-        // Marcador en Chamartín, Madrid
-        LatLng chamartin = new LatLng(40.4356, -3.6907);
-        mMap.addMarker(new MarkerOptions().position(chamartin).title("Chamartín, Madrid").icon(icono));
-
-        // Marcador en el Estadio Santiago Bernabéu, Madrid
-        LatLng santiagoBernabeu = new LatLng(40.4397, -3.7131);
-        mMap.addMarker(new MarkerOptions().position(santiagoBernabeu).title("Estadio Santiago Bernabéu, Madrid").icon(icono).snippet("Descripción detallada de Parque del Retiro"));
+        mMap.addMarker(new MarkerOptions().position(puertaDelSol).title("Puerta del Sol, Madrid").icon(icono));*/
 
 
-
-        /*mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                // Obtener la información del marcador
-                String title = marker.getTitle();
-                String snippet = marker.getSnippet();
-
-                // Abrir la aplicación de mapas con indicaciones
-                if (title != null && !title.isEmpty() && snippet != null && !snippet.isEmpty()) {
-                    String uri = "google.navigation:q=" + marker.getPosition().latitude + "," + marker.getPosition().longitude + "&mode=d";
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                    intent.setPackage("com.google.android.apps.maps");
-                    startActivity(intent);
-                }
-
-                return false;
-            }
-        });*/
-
-        // Mover la cámara a la ubicación del primer lugar (Puerta del Sol)
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(puertaDelSol, 15));
+        //recoger de firebase
+        recogerDeMapa(mMap, icono);
 
 
         if (ContextCompat.checkSelfPermission(getContext(),
@@ -150,6 +110,37 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 });
     }
 
+    public void recogerDeMapa(GoogleMap mMap, BitmapDescriptor icono){
+
+
+        // ... (código existente)
+
+        // Recuperar puntos de la base de datos y agregar marcadores
+        db.collection("mapas").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (DocumentSnapshot document : task.getResult()) {
+                    // Obtener datos del documento
+                    String titulo = document.getString("titulo");
+                    String latitud = document.getString("latitud");
+                    String longitud = document.getString("longitud");
+                    String descripcion = document.getString("descripcion");
+
+                    Double latitudADouble = Double.parseDouble(latitud);
+                    Double longitudADouble = Double.parseDouble(longitud);
+
+                    // Agregar marcador al mapa
+                    if (titulo != null && descripcion != null) {
+                        LatLng lugar = new LatLng(latitudADouble, longitudADouble);
+                        mMap.addMarker(new MarkerOptions().position(lugar).title(titulo).snippet(descripcion).icon(icono));
+                    }
+                }
+            } else {
+                // Manejar errores al obtener puntos de la base de datos
+                showToast("Error al obtener puntos del mapa");
+            }
+        });
+
+    }
 
 
 
@@ -157,5 +148,32 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     // Método para mostrar un Toast
     private void showToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    public  String recogerUserId(){
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        String userId = user.getUid();
+        return userId;
+    }
+    private void comprobarAdmin(String userId){
+        db.collection("usuarios").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        // El documento existe, ahora comprobar el campo "admin"
+                        boolean admin = document.contains("admin") ? document.getBoolean("admin") : false;
+                        ocultarBoton(admin);
+                    }
+                }
+            }
+        });
+    }
+    private void ocultarBoton(boolean admin){
+        if(admin == true){
+            masMapasAdmin.setVisibility(View.VISIBLE);
+        }
     }
 }

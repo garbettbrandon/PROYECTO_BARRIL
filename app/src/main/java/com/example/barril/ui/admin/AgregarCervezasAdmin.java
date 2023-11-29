@@ -108,7 +108,12 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
             marca = idMarcaAdmin.getText().toString();
             modelo = idModeloAdmin.getText().toString();
             descripcion = idDescripcionAdmin.getText().toString();
-            color = idValorColorAdmin.getText().toString();
+            if(!esValidoHexColor(idValorColorAdmin.getText().toString())){
+                showColorError();
+            }else{
+                color = idValorColorAdmin.getText().toString();
+                colorCabeceraAdmin.setBackgroundColor(Color.parseColor(color));
+            }
             cantidad = idCantidadAdmin.getText().toString();
             precio = idPrecioAdmin.getText().toString();
             grados = idGradosAdmin.getText().toString();
@@ -121,7 +126,7 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
             idPorcentajeCervezaAdmin.setText(grados);
             idTipoCardAdmin.setText(tipo);
 
-            colorCabeceraAdmin.setBackgroundColor(Color.parseColor(color));
+
         });
 
         // Evento de clic para agregar la cerveza
@@ -210,7 +215,7 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
                         }
                     });
 
-                    // Hacer algo adicional después de una subida exitosa si es necesario
+
                 })
                 .addOnFailureListener(e -> {
                     // Manejar errores durante la subida de la imagen
@@ -231,7 +236,7 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
         precio = idPrecioAdmin.getText().toString();
         grados = idGradosAdmin.getText().toString();
         tipo = idTipoAdmin.getText().toString();
-        //aqui compruebo que se ha seleccionado una botella y un logo
+        //Compruebo que se ha seleccionado una botella y un logo
         urlBotellaComprobada =urlBotella;
         urlLogoComprobado = urlLogo;
         urlMaridajeComprobado = urlMaridaje;
@@ -245,6 +250,9 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
                 || cantidad.isEmpty() || precio.isEmpty() || grados.isEmpty() || tipo.isEmpty()
                 || urlBotellaComprobada==null || urlLogoComprobado==null || urlMaridajeComprobado==null || urlRadarComprobado==null) {
             showCompletar();
+            return;
+        }else if(!esValidoHexColor(color)){
+            showColorError();
             return;
         }
 
@@ -273,6 +281,20 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
                     showAlert();
                 });
 
+    }
+
+    private boolean esValidoHexColor(String hexColor) {
+        String hexPattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
+        return hexColor.matches(hexPattern);
+    }
+    // Método para mostrar un mensaje de error en caso de que el color no sea válido
+    private void showColorError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(ERROR);
+        builder.setMessage("El formato del color hexadecimal no es válido. Introduce un color en formato #RRGGBB.");
+        builder.setPositiveButton(ACEPTAR, null);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void showExito() {

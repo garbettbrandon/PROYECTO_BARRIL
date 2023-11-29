@@ -47,8 +47,8 @@
 
                 <ImageView
                     android:id="@+id/imagenUsuario"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
                     android:clickable="true"
                     android:onClick="cambiarFotoPerfil"
                     android:src="@drawable/usuario" />
