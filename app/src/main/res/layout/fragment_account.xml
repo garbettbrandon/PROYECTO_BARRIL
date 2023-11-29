@@ -49,6 +49,8 @@
                     android:id="@+id/imagenUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:onClick="cambiarFotoPerfil"
                     android:src="@drawable/usuario" />
             </androidx.cardview.widget.CardView>
         </LinearLayout>
@@ -59,11 +61,12 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:orientation="horizontal"
             android:gravity="center">
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
@@ -84,10 +87,11 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="0dp"
             android:orientation="horizontal"
             android:gravity="center">
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardTipo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
@@ -109,7 +113,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="231dp"
             android:gravity="center"
             android:orientation="horizontal">
 

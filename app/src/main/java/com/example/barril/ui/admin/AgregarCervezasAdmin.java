@@ -43,11 +43,11 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
     private static final String COMPLETAR_CAMPOS = "Completar todos los camposy añade imágenes";
 
     EditText idMarcaAdmin, idModeloAdmin, idDescripcionAdmin, idCantidadAdmin, idPrecioAdmin, idGradosAdmin, idTipoAdmin, idValorColorAdmin;
-    Button idAgregarLogo, idAgregarBotella, idBotonVer, idBotonVolverAdmin, idBotonAgregarAdmin;
+    Button idAgregarLogo, idAgregarBotella, idBotonVer, idBotonVolverAdmin, idBotonAgregarAdmin,idRadar, idMaridaje;
     TextView idTituloCervezaAdmin, idDescripcionCervezaAdmin, idTipoCardAdmin, idTamanioCervezaAdmin, idPrecioCervezaAdmin, idPorcentajeCervezaAdmin;
     LinearLayout colorCabeceraAdmin;
     ImageView idVectorCervezaAdmin, idVectorLogoAdmin;
-    String marca, modelo, descripcion, color, cantidad, precio, grados, tipo, urlLogo, urlBotella;
+    String marca, modelo, descripcion, color, cantidad, precio, grados, tipo, urlLogo, urlBotella, urlMaridaje, urlRadar,urlMaridajeComprobado,urlRadarComprobado,urlBotellaComprobada,urlLogoComprobado;
 
     FirebaseFirestore db;
     FirebaseStorage storage;
@@ -68,6 +68,10 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
 
         setContentView(R.layout.activity_agregar_cervezas_admin);
 
+        // Inicializar Firebase Storage
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
+
         // Inicializar variables
         idMarcaAdmin = findViewById(R.id.idMarcaAdmin);
         idModeloAdmin = findViewById(R.id.idModeloAdmin);
@@ -79,6 +83,8 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
 
         idAgregarLogo = findViewById(R.id.idAgregarLogo);
         idAgregarBotella = findViewById(R.id.idAgregarCerveza);
+        idRadar = findViewById(R.id.idRadarImagen);
+        idMaridaje = findViewById(R.id.idMaridajeImagen);
         idBotonVer = findViewById(R.id.idBotonVer);
         idBotonVolverAdmin = findViewById(R.id.idBotonVolverAdmin);
         idBotonAgregarAdmin = findViewById(R.id.idBotonAgregarAdmin);
@@ -96,19 +102,6 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
 
         colorCabeceraAdmin = findViewById(R.id.idColorCabeceraAdmin);
 
-        // Inicializar Firebase Storage
-        storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReference();
-
-        // Evento de clic para agregar una imagen de cerveza desde la galería
-        idAgregarLogo.setOnClickListener(view -> {
-            galleryLauncher.launch("image/*");
-        });
-
-        // Evento de clic para agregar una imagen de botella desde la galería
-        idAgregarBotella.setOnClickListener(view -> {
-            galleryLauncherBotellas.launch("image/*");
-        });
 
         // Evento de clic para ver la información ingresada
         idBotonVer.setOnClickListener(view -> {
@@ -148,11 +141,25 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
             startActivity(i);
             finish();
         });
+        // Evento de clic para agregar una imagen de cerveza desde la galería
+        idAgregarLogo.setOnClickListener(view -> {
+            galleryLauncher.launch("image/*");
+        });
+
+        // Evento de clic para agregar una imagen de botella desde la galería
+        idAgregarBotella.setOnClickListener(view -> {
+            galleryLauncherBotellas.launch("image/*");
+        });
+
+        idRadar.setOnClickListener(view ->{
+            galleryLauncherRadar.launch("image/*");
+        });
+
+        idMaridaje.setOnClickListener(view ->{
+            galleryLauncherMaridaje.launch("image/*");
+        });
     }
 
-    private void recogerDatosParaRefrescar(){
-
-    }
 
     private final ActivityResultLauncher<String> galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
         if (result != null) {
@@ -165,6 +172,16 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
         if (result != null) {
             subirImagenAFirebaseStorage(result, "botellas");
             Picasso.get().load(result).into(idVectorCervezaAdmin);
+        }
+    });
+    private final ActivityResultLauncher<String> galleryLauncherMaridaje = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
+        if (result != null) {
+            subirImagenAFirebaseStorage(result, "maridaje");
+        }
+    });
+    private final ActivityResultLauncher<String> galleryLauncherRadar = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
+        if (result != null) {
+            subirImagenAFirebaseStorage(result, "radar");
         }
     });
 
@@ -186,6 +203,10 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
                             urlLogo = nombreImagen;
                         } else if (carpeta.equals("botellas")) {
                             urlBotella = nombreImagen;
+                        }else if (carpeta.equals("maridaje")) {
+                            urlMaridaje = nombreImagen;
+                        }else if (carpeta.equals("radar")) {
+                            urlRadar = nombreImagen;
                         }
                     });
 
@@ -211,8 +232,10 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
         grados = idGradosAdmin.getText().toString();
         tipo = idTipoAdmin.getText().toString();
         //aqui compruebo que se ha seleccionado una botella y un logo
-        String urlBotellaComprobada =urlBotella;
-        String urlLogoComprobado = urlLogo;
+        urlBotellaComprobada =urlBotella;
+        urlLogoComprobado = urlLogo;
+        urlMaridajeComprobado = urlMaridaje;
+        urlRadarComprobado = urlRadar;
 
         // URL de la botella (pueden ser vacías por ahora)
         //String urlBotella = ""; // Puedes cambiar esto con la URL real de la botella
@@ -220,7 +243,7 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
         // Verificar que no haya campos vacíos
         if (marca.isEmpty() || modelo.isEmpty() || descripcion.isEmpty() || color.isEmpty()
                 || cantidad.isEmpty() || precio.isEmpty() || grados.isEmpty() || tipo.isEmpty()
-                || urlBotellaComprobada==null || urlLogoComprobado==null) {
+                || urlBotellaComprobada==null || urlLogoComprobado==null || urlMaridajeComprobado==null || urlRadarComprobado==null) {
             showCompletar();
             return;
         }
@@ -237,6 +260,8 @@ public class AgregarCervezasAdmin extends AppCompatActivity {
         cerveza.put("tipo", tipo);
         cerveza.put("urlBotella", urlBotellaComprobada);
         cerveza.put("urlLogo", urlLogoComprobado);
+        cerveza.put("urlRadar", urlRadarComprobado);
+        cerveza.put("urlMaridaje", urlMaridajeComprobado);
 
         // Subir el mapa a Firestore
         db.collection("cervezas").add(cerveza)

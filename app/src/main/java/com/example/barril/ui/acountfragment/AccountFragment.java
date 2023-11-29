@@ -1,10 +1,14 @@
 package com.example.barril.ui.acountfragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,10 +23,13 @@ import android.widget.Toast;
 
 import com.example.barril.R;
 import com.example.barril.ui.auth.LogIn;
+import com.example.barril.ui.cards.CardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +38,20 @@ import java.util.List;
 public class AccountFragment extends Fragment {
 
     private static final String EL_BARRIL_DE = "El barril de ";
-    TextView id_tipo_inicio, idNombreBarril;
+    private static final int REQUEST_IMAGE_PICK = 1;
+    TextView id_tipo_inicio, idNombreBarril, idNombre;
     Button id_cerrar_sesion;
+    ImageView imagenUsuario;
+    CardView cardNombre, cardTipo;
 
     List<GuardadoElement> elements;
     private GuardadoAdapter guardadoAdapter;
 
+    FirebaseAuth auth;
+    FirebaseUser user;
+    DocumentReference userRef;
+    StorageReference storageRef;
+    StorageReference imageRef;
 
 
 
@@ -49,22 +64,101 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         initRecyclerView(view);
 
+        imagenUsuario = view.findViewById(R.id.imagenUsuario);
         id_cerrar_sesion = view.findViewById(R.id.id_cerrar_sesion);
         id_tipo_inicio = view.findViewById(R.id.id_tipo_inicio_acount);
         idNombreBarril = view.findViewById(R.id.idNombreBarril);
+        idNombre = view.findViewById(R.id.idNombre);
+
         ImageView imagenUsuario = view.findViewById(R.id.imagenUsuario);
 
         mostrarNombreInicio();
         mostrarCervezasGuardadas();
+
+        id_tipo_inicio.setVisibility(View.INVISIBLE);
+        idNombre.setVisibility(View.INVISIBLE);
 
         id_cerrar_sesion.setOnClickListener(viewLambda -> {
             borradoDatosAutentificacion();
             FirebaseAuth.getInstance().signOut();
             volverInicio();
         });
+
+        imagenUsuario.setOnClickListener(v -> {
+            cambiarFotoPerfil();
+        });
+
+
         return view;
 
     }
+    private ActivityResultLauncher<Intent> imagePickerLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    if (data != null) {
+                        Uri selectedImageUri = data.getData();
+                        if (selectedImageUri != null) {
+                            subirNuevaFotoPerfil(selectedImageUri);
+                        }
+                    }
+                }
+            }
+    );
+
+    private void subirNuevaFotoPerfil(Uri imageUri) {
+        // Crear una referencia al lugar donde se almacenará la imagen en Firebase Storage
+        storageRef = FirebaseStorage.getInstance().getReference();
+        imageRef = storageRef.child("fotos_perfil/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + ".jpg");
+
+        // Subir la imagen a Firebase Storage
+        imageRef.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    // Obtener la URL de descarga de la imagen
+                    imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                        // Actualizar la URL de la foto de perfil del usuario en Firestore
+                        actualizarFotoPerfilUsuario(uri);
+                    });
+                })
+                .addOnFailureListener(e -> {
+                    // Manejar errores durante la subida de la imagen
+                    Toast.makeText(requireContext(), "Error al subir la nueva foto de perfil", Toast.LENGTH_SHORT).show();
+                });
+    }
+    private void actualizarFotoPerfilUsuario(Uri photoUri) {
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
+        if (user != null) {
+            // Obtener el ID del usuario
+            String userId = user.getUid();
+
+            // Referencia al documento del usuario en la colección 'usuarios'
+            DocumentReference userRef = FirebaseFirestore.getInstance().collection("usuarios").document(userId);
+
+            // Actualizar el campo 'fotoPerfil' con la nueva URL
+            userRef.update("fotoPerfil", photoUri.toString())
+                    .addOnSuccessListener(aVoid -> {
+                        // La URL de la foto de perfil se ha actualizado correctamente
+                        Toast.makeText(requireContext(), "Foto de perfil actualizada con éxito", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        // Manejar errores al actualizar la URL de la foto de perfil
+                        Toast.makeText(requireContext(), "Error al actualizar la foto de perfil", Toast.LENGTH_SHORT).show();
+                    });
+        }
+    }
+
+
+    // Método para cambiar la foto de perfil
+    public void cambiarFotoPerfil() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        imagePickerLauncher.launch(intent);
+    }
+
+
     private void initRecyclerView(View view) {
         elements = new ArrayList<>();
         guardadoAdapter = new GuardadoAdapter(elements, getActivity());
@@ -75,14 +169,14 @@ public class AccountFragment extends Fragment {
     }
 
     private void mostrarNombreInicio() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
         if (user != null) {
             // Obtener el ID del usuario
             String userId = user.getUid();
 
             // Referencia al documento del usuario en la colección 'usuarios'
-            DocumentReference userRef = FirebaseFirestore.getInstance().collection("usuarios").document(userId);
+            userRef = FirebaseFirestore.getInstance().collection("usuarios").document(userId);
 
             // Obtener datos del usuario desde Firestore
             userRef.get().addOnSuccessListener(documentSnapshot -> {
@@ -116,8 +210,8 @@ public class AccountFragment extends Fragment {
     }
 
     private void mostrarCervezasGuardadas() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
 
         if (user != null) {
             // Obtener el ID del usuario
@@ -175,3 +269,4 @@ public class AccountFragment extends Fragment {
     }
 
 }
+
