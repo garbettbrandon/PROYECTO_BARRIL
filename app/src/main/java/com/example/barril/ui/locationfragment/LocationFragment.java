@@ -73,7 +73,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         BitmapDescriptor icono = BitmapDescriptorFactory.fromResource(R.drawable.icono_maps);
 
-       /* // Intoducior uno a uno
+       /* // PARA PONER PUNTOS EN EL MAPA DE UNO EN UNO
         LatLng puertaDelSol = new LatLng(40.4169, -3.7038);
         mMap.addMarker(new MarkerOptions().position(puertaDelSol).title("Puerta del Sol, Madrid").icon(icono));*/
 

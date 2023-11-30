@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.barril.R;
 import com.example.barril.ui.auth.LogIn;
 import com.example.barril.ui.cards.CardView;
@@ -143,10 +144,15 @@ public class AccountFragment extends Fragment {
             //actualizar el campo 'fotoPerfil' con la nueva URL
             userRef.update("fotoPerfil", photoUri.toString())
                     .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(requireContext(), "Foto de perfil actualizada con éxito", Toast.LENGTH_SHORT).show();
+                        //isAdded impide que se haga un IllegalStateException que hacer que se cierre la app al actualizar la foto
+                        if (isAdded()) {
+                            Toast.makeText(requireContext(), "Foto de perfil actualizada con éxito", Toast.LENGTH_SHORT).show();
+                        }
                     })
                     .addOnFailureListener(e -> {
-                        Toast.makeText(requireContext(), "Error al actualizar la foto de perfil", Toast.LENGTH_SHORT).show();
+                        if (isAdded()) {
+                            Toast.makeText(requireContext(), "Error al actualizar la foto de perfil", Toast.LENGTH_SHORT).show();
+                        }
                     });
         }
     }
@@ -197,6 +203,8 @@ public class AccountFragment extends Fragment {
 
         Glide.with(requireContext())
                 .load(fotoPerfilUrl)
+                .diskCacheStrategy(DiskCacheStrategy.NONE) // Invalidar la caché para actualizar la foto instantaneamente
+                .skipMemoryCache(true) // Saltar la caché en memoria
                 .into(imagenUsuario);
     }
 

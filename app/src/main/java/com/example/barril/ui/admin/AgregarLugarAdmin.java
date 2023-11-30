@@ -26,6 +26,9 @@ public class AgregarLugarAdmin extends AppCompatActivity {
     private static String ERROR = "Error";
     private static String ACEPTAR = "Aceptar";
     private static String MENSAJE_NO_AUTORIZADO = "Coordenadas inválidas";
+    private static String MENSAJE_VACIOS = "No deben quedar campos vacíos";
+    private static String MENSAJE_FORMATO_INCORRECTO = "Formato incorrecto deben ser asi Ej: 90.00000 -80.00000";
+
 
     private GoogleMap mMap;
     FirebaseFirestore db;
@@ -62,6 +65,11 @@ public class AgregarLugarAdmin extends AppCompatActivity {
 
     private void agregarAlMapa(String titulo, String latitud, String longitud, String descripcion) {
         db = FirebaseFirestore.getInstance();
+
+        if (titulo.isEmpty() || latitud.isEmpty() || longitud.isEmpty() || descripcion.isEmpty()) {
+            showAlertVacios();
+            return;
+        }
         if (comprobarCoordenadas(Double.parseDouble(latitud), Double.parseDouble(longitud))) {
             Map<String, Object> lugar = new HashMap<>();
             lugar.put("titulo", titulo);
@@ -94,7 +102,33 @@ public class AgregarLugarAdmin extends AppCompatActivity {
     }
     private boolean comprobarCoordenadas(double latitude, double longitude) {
         // Verifica si las coordenadas están dentro de rangos válidos
+        String latitudStr = String.valueOf(latitude);
+        String longitudStr = String.valueOf(longitude);
+
+        // Verifica si las coordenadas están dentro de rangos válidos
+        boolean formatoCorrecto = latitudStr.matches("^-?\\d{1,2}(\\.\\d+)?$") &&
+                longitudStr.matches("^-?\\d{1,3}(\\.\\d+)?$");
+
+        if (!formatoCorrecto) {
+            showAlertFormatoIncorrecto();
+        }
         return (latitude >= -90 && latitude <= 90) && (longitude >= -180 && longitude <= 180);
+    }
+    private void showAlertVacios(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(ERROR);
+        builder.setMessage(MENSAJE_VACIOS);
+        builder.setPositiveButton(ACEPTAR, null);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+    private void showAlertFormatoIncorrecto(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(ERROR);
+        builder.setMessage(MENSAJE_FORMATO_INCORRECTO);
+        builder.setPositiveButton(ACEPTAR, null);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
 }

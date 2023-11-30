@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="415dp" />
+        app:layout_constraintGuide_begin="464dp" />
 
     <EditText
         android:id="@+id/idTituloMapa"
@@ -96,8 +96,8 @@
 
     <EditText
         android:id="@+id/idDescripcionMapa"
-        android:layout_width="321dp"
-        android:layout_height="62dp"
+        android:layout_width="324dp"
+        android:layout_height="71dp"
         android:ems="10"
         android:fontFamily="@font/secular"
         android:hint="Breve descripción"
@@ -113,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="508dp" />
+        app:layout_constraintGuide_begin="539dp" />
 
     <Button
         android:id="@+id/idAgregarMapa"
