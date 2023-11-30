@@ -89,17 +89,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
             // Recuperar la URL de la imagen
             storageRefBotella.getDownloadUrl().addOnSuccessListener(uri -> {
-                // Aquí tienes la URL de la imagen
                 String imageUrl = uri.toString();
-
-                // Cargar la imagen en el ImageView usando Picasso
                 Picasso.get().load(imageUrl).into(logo);
             });
             storageRefLogo.getDownloadUrl().addOnSuccessListener(uri -> {
-                // Aquí tienes la URL de la imagen
-                String imageUrl = uri.toString();
 
-                // Cargar la imagen en el ImageView usando Picasso
+                String imageUrl = uri.toString();
                 Picasso.get().load(imageUrl).into(botella);
             });
 
@@ -152,33 +147,26 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     //////////////////////////////////////METODOSSSSS///////////////////////////////////////////////////////////////////
     private void cervezaFavorita(String idCerveza) {
 
-        // Aquí deberías agregar la lógica para guardar 'idCerveza' en la lista de favoritos del usuario en Firebase
-        // Puedes hacer esto actualizando el documento del usuario en la colección 'usuarios'
-        // y agregando 'idCerveza' a la matriz 'favoritos'.
-
-        // Ejemplo simplificado (no olvides manejar los casos de error y las tareas asincrónicas):
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
 
-            // Referencia al documento del usuario en la colección 'usuarios'
+            //referencia al documento del usuario en la colección 'usuarios'
             DocumentReference userRef = FirebaseFirestore.getInstance().collection(USUARIOS).document(userId);
 
-            // Obtener la lista actual de favoritos del usuario
+            //obtener la lista actual de favoritos del usuario
             userRef.get().addOnSuccessListener(documentSnapshot -> {
                 Set<String> favoritos = new HashSet<>((List<String>) documentSnapshot.get(FAVORITOS));
-
-                // Asegurarse de que la lista exista
+                //Asegurarse de que la lista exista
                 if (favoritos == null) {
                     favoritos = new HashSet<>();
                 }
-
-                // Verificar si la cerveza ya está en la lista de favoritos
+                //verificar si la cerveza ya está en la lista de favoritos
                 if (!favoritos.contains(idCerveza)) {
                     // Agregar la nueva cerveza a la lista de favoritos
                     favoritos.add(idCerveza);
 
-                    // Actualizar la lista de favoritos del usuario en Firebase
+                    //actualizar la lista de favoritos del usuario en Firebase
                     userRef.update("favoritos", new ArrayList<>(favoritos))
                             .addOnSuccessListener(aVoid -> {
                                 // Éxito al agregar la cerveza a la lista de favoritos
@@ -201,14 +189,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         if (currentUser != null) {
             String userId = currentUser.getUid();
 
-            // Referencia al documento del usuario en la colección 'usuarios'
+            //referencia al documento del usuario en la colección 'usuarios'
             DocumentReference userRef = FirebaseFirestore.getInstance().collection(USUARIOS).document(userId);
 
-            // Obtener la lista actual de favoritos del usuario
+            //Obtener la lista actual de favoritos del usuario
             userRef.get().addOnSuccessListener(documentSnapshot -> {
                 Set<String> favoritos = new HashSet<>((List<String>) documentSnapshot.get(FAVORITOS));
 
-                // Verificar si la cerveza ya está en la lista de favoritos
+                //Verificar si la cerveza ya está en la lista de favoritos
                 boolean isFavorita = favoritos != null && favoritos.contains(idCerveza);
                 callback.onResult(isFavorita);
             });

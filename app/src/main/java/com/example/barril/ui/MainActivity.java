@@ -47,12 +47,8 @@ public class MainActivity extends AppCompatActivity {
     String comprobacionEmail, comprobacionProvider;
     FirebaseFirestore db;
     DocumentReference cervezasRef;
-
-
     FloatingActionButton cameraBtn;
 
-
-    //FirebaseStorage storage = FirebaseStorage.getInstance();
 
 
     @Override

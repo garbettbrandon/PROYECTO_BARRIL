@@ -26,8 +26,6 @@ public class LogIn extends AppCompatActivity {
     private static String ERROR = "Error";
     private static String ACEPTAR = "Aceptar";
     private static String MENSAJE_NO_AUTORIZADO = "Error en usuario o contraseña";
-    //private static int GOOGLE_SING_IN = 100;
-
     private static final String EMAIL = "email";
     private static final String PROVIDER = "provider";
 
@@ -38,32 +36,6 @@ public class LogIn extends AppCompatActivity {
     String userEmail, comprobacionEmail, comprobacionProviderString;
     MainActivity.ProviderType comprobacionProvider;
 
-
-    private FirebaseAuth mAuth;
-
-
-    //COMPORBAR NO FUNCCIONA---------------------------------------------------------------------
-    /*private final ActivityResultLauncher<Intent> googleSignInLauncher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == RESULT_OK) {
-                    handleGoogleSignInResult(result.getData());
-                }
-            });
-
-    private void handleGoogleSignInResult(Intent data) {
-        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-        try {
-            GoogleSignInAccount account = task.getResult(ApiException.class);
-            // El inicio de sesión con Google fue exitoso, puedes acceder a la cuenta de GoogleSignInAccount aquí
-            String userEmail = account.getEmail();
-            showHome(userEmail, MainActivity.ProviderType.GOOGLE); // Asigna el tipo de proveedor apropiado
-            finish();
-        } catch (ApiException e) {
-            // El inicio de sesión con Google falló
-            showAlert();
-        }
-    }*/
-    //---------------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -81,12 +53,6 @@ public class LogIn extends AppCompatActivity {
 
         idEntrarGoogle.setVisibility(View.INVISIBLE);
 
-
-
-
-
-
-
         //Comprobar sesión activa
 
         idRegistro.setOnClickListener(view -> {
@@ -94,21 +60,6 @@ public class LogIn extends AppCompatActivity {
             startActivity(i);
             finish();
         });
-        //-------------------------------------LOGING GOOGLE---------------------------------------------------
-        //---------------------------------Arreglar------------------------------------------------------------
-        /*idEntrarGoogle.setOnClickListener(view -> {
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build();
-            GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-            googleSignInLauncher.launch(signInIntent);
-        });*/
-
-
-
-        //-------------------------------------LOGIN NORMAL BASIC----------------------------------------------
 
         idBotonEntrar.setOnClickListener(view -> {
             if(!idUsuario.getText().toString().isEmpty() && !idContrasenia.getText().toString().isEmpty()){

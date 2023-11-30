@@ -181,13 +181,7 @@ public class AccountFragment extends Fragment {
                             // Por ejemplo, cargar la imagen con Glide
                             cargarImagenUsuario(fotoPerfilUrl);
                         }
-                    } else {
-                        // El campo "fotoPerfil" no existe en el documento
-                        // Puedes manejar esta situación según tus necesidades
                     }
-                } else {
-                    // El documento no existe
-                    // Puedes manejar esta situación según tus necesidades
                 }
             }).addOnFailureListener(e -> {
                 // Manejar errores al obtener datos del usuario desde Firestore

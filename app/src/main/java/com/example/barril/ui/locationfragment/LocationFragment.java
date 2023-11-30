@@ -113,8 +113,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public void recogerDeMapa(GoogleMap mMap, BitmapDescriptor icono){
 
 
-        // ... (código existente)
-
         // Recuperar puntos de la base de datos y agregar marcadores
         db.collection("mapas").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -139,13 +137,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 showToast("Error al obtener puntos del mapa");
             }
         });
-
     }
-
-
-
-
-    // Método para mostrar un Toast
     private void showToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
@@ -163,7 +155,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 if (task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        // El documento existe, ahora comprobar el campo "admin"
+                        //comprobar el campo "admin"
                         boolean admin = document.contains("admin") ? document.getBoolean("admin") : false;
                         ocultarBoton(admin);
                     }

@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.example.barril.R;
-import com.example.barril.ui.acountfragment.BuscarAdapter;
+import com.example.barril.ui.searchfragment.BuscarAdapter;
 import com.example.barril.ui.homefragment.ListAdapter;
 import com.example.barril.ui.homefragment.ListElement;
 import com.google.android.gms.tasks.OnCompleteListener;

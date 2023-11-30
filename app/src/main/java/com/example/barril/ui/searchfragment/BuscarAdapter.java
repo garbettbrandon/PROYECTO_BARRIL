@@ -1,4 +1,4 @@
-package com.example.barril.ui.acountfragment;
+package com.example.barril.ui.searchfragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -29,7 +29,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class BuscarAdapter extends RecyclerView.Adapter<com.example.barril.ui.acountfragment.BuscarAdapter.ViewHolder> {
+public class BuscarAdapter extends RecyclerView.Adapter<com.example.barril.ui.searchfragment.BuscarAdapter.ViewHolder> {
 
     private List<BuscarElement> mData;
     private LayoutInflater mInflater;
@@ -93,17 +93,11 @@ public class BuscarAdapter extends RecyclerView.Adapter<com.example.barril.ui.ac
 
 
         void bindData(final BuscarElement item){
-            // Cargar desde una URL usando Picasso
             storage = FirebaseStorage.getInstance();
             storageRefBotellaGuardado = storage.getReference().child(item.getUrlBotella().toString());
 
-
-            // Recuperar la URL de la imagen
             storageRefBotellaGuardado.getDownloadUrl().addOnSuccessListener(uri -> {
-                // Aquí esta la URL de la imagen
                 String imageUrl = uri.toString();
-
-                // Cargar la imagen en el ImageView usando Picasso
                 Picasso.get().load(imageUrl).into(idBotellaGuardado);
             });
             //Cargar datos nomral
@@ -122,14 +116,14 @@ public class BuscarAdapter extends RecyclerView.Adapter<com.example.barril.ui.ac
     }
     @NonNull
     @Override
-    public com.example.barril.ui.acountfragment.BuscarAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public com.example.barril.ui.searchfragment.BuscarAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //reutilizamos tarjeta para mostrar datos
         View view = mInflater.inflate(R.layout.activity_card_basico,null);
-        return new com.example.barril.ui.acountfragment.BuscarAdapter.ViewHolder(view);
+        return new com.example.barril.ui.searchfragment.BuscarAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull com.example.barril.ui.acountfragment.BuscarAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull com.example.barril.ui.searchfragment.BuscarAdapter.ViewHolder holder, int position) {
         holder.bindData(mData.get(position));
     }
     @Override
